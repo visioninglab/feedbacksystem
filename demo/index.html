@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Builder — Interactive Demo</title>
+  <style>
+    :root {
+      --primary: #2c3e6b;
+      --primary-light: #3d5a99;
+      --accent: #0055a5;
+      --success: #1a7f37;
+      --warning: #d4820c;
+      --error: #cf222e;
+      --bg: #f0f2f5;
+      --surface: #ffffff;
+      --border: #d0d7de;
+      --text: #1a1a1a;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Header */
+    .header {
+      background: var(--primary);
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .header .badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Main layout */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--primary);
+    }
+    .panel-body {
+      padding: 20px;
+    }
+
+    /* Form controls */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group select,
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .form-group select:focus,
+    .form-group input[type="text"]:focus,
+    .form-group textarea:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+    .form-group .auto-field {
+      padding: 8px 12px;
+      background: #f6f8fa;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text);
+      min-height: 36px;
+    }
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    /* Filter row */
+    .filter-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .filter-row .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* Gallery */
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .gallery-header span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .selection-count {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .gallery {
+      max-height: 380px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .gallery-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .gallery-item:last-child {
+      border-bottom: none;
+    }
+    .gallery-item:hover {
+      background: #f6f8fa;
+    }
+    .gallery-item.selected {
+      background: #e8f0fe;
+    }
+    .gallery-item input[type="checkbox"] {
+      margin-top: 2px;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .gallery-item-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .gallery-item-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .gallery-item-meta {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .gallery-item-preview {
+      font-size: 13px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Buttons */
+    .button-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: #f0f2f5;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: #e0e3e8;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-light);
+    }
+
+    /* Preview panel */
+    .preview-col {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+    }
+    .preview-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+    .preview-tab {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      font-family: inherit;
+    }
+    .preview-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .preview-content {
+      padding: 0;
+      max-height: 700px;
+      overflow-y: auto;
+    }
+    .email-preview-frame {
+      background: #f5f5f5;
+      padding: 20px;
+      min-height: 400px;
+    }
+    .plain-text-preview {
+      padding: 20px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      color: var(--text);
+      min-height: 400px;
+      display: none;
+    }
+    .preview-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      color: var(--text-muted);
+      font-size: 15px;
+      text-align: center;
+      padding: 40px;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .toast {
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: slideIn 0.3s ease-out;
+      max-width: 360px;
+    }
+    .toast.success { background: var(--success); }
+    .toast.error { background: var(--error); }
+    .toast.info { background: var(--accent); }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Loading state */
+    .btn.loading {
+      pointer-events: none;
+      position: relative;
+      color: transparent;
+    }
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      margin: -9px 0 0 -9px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sample data banner -->
+  <div style="background:#cf222e; color:#fff; text-align:center; padding:10px 16px; font-weight:700; font-size:14px; letter-spacing:0.5px;">
+    *** THIS IS SAMPLE DATA ONLY ***
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Psychology Feedback Builder</h1>
+    <span class="badge">Interactive Demo</span>
+  </div>
+
+  <!-- Main two-column layout -->
+  <div class="main">
+
+    <!-- Left column: Controls -->
+    <div class="controls-col">
+      <div class="panel">
+        <div class="panel-header">Student & Settings</div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="ddStudent">Student</label>
+            <select id="ddStudent">
+              <option value="">-- Select a student --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Module</label>
+            <div class="auto-field" id="lblModule">Select a student above</div>
+          </div>
+          <div class="form-group">
+            <label for="ddIntro">Intro Paragraph</label>
+            <select id="ddIntro"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top: 16px;">
+        <div class="panel-header">Feedback Library</div>
+        <div class="panel-body">
+          <div class="filter-row">
+            <div class="form-group">
+              <label for="ddCategory">Category</label>
+              <select id="ddCategory"></select>
+            </div>
+            <div class="form-group">
+              <label for="txtSearch">Search</label>
+              <input type="text" id="txtSearch" placeholder="Search titles or tags...">
+            </div>
+          </div>
+
+          <div class="gallery-header">
+            <span id="lblFilterCount">32 items</span>
+            <span class="selection-count" id="lblSelectionCount">0 selected</span>
+          </div>
+
+          <div class="gallery" id="galFeedback" role="list" aria-label="Feedback items"></div>
+
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="txtCustomNote">Custom Note (optional)</label>
+            <textarea id="txtCustomNote" placeholder="Add a personal note for this student..."></textarea>
+          </div>
+
+          <div class="button-row">
+            <button class="btn btn-secondary" id="btnSaveDraft" disabled>Save Draft</button>
+            <button class="btn btn-primary" id="btnSubmitSend" disabled>Submit & Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: Preview -->
+    <div class="preview-col">
+      <div class="panel">
+        <div class="preview-tabs">
+          <button class="preview-tab active" data-tab="html">HTML Preview</button>
+          <button class="preview-tab" data-tab="plain">Plain Text</button>
+        </div>
+        <div class="preview-content">
+          <div id="previewHtml" class="email-preview-frame">
+            <div class="preview-empty">Select a student and feedback items to see the email preview</div>
+          </div>
+          <div id="previewPlain" class="plain-text-preview"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
