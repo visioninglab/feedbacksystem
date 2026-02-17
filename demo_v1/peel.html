@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEEL Paragraph Feedback — Interactive Demo</title>
+  <style>
+    :root {
+      --point: #6a3d9a;
+      --evidence: #1f78b4;
+      --explain: #33a02c;
+      --link: #e66100;
+      --primary: #2c3e6b;
+      --bg: #f0f2f5;
+      --surface: #ffffff;
+      --border: #d0d7de;
+      --text: #1a1a1a;
+      --text-sec: #555555;
+      --text-muted: #888888;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Banner + header */
+    .banner { background:#cf222e; color:#fff; text-align:center; padding:8px; font-weight:700; font-size:13px; letter-spacing:.5px; }
+    .header { background:var(--primary); color:#fff; padding:14px 24px; display:flex; align-items:center; gap:12px; }
+    .header h1 { margin:0; font-size:18px; font-weight:600; }
+    .header .badge { background:rgba(255,255,255,.2); padding:2px 10px; border-radius:12px; font-size:11px; }
+    .header a { color:rgba(255,255,255,.8); text-decoration:none; font-size:13px; margin-left:auto; }
+    .header a:hover { color:#fff; }
+
+    /* Container */
+    .container { max-width:1100px; margin:0 auto; padding:20px; }
+
+    /* Top bar: selector + legend */
+    .top-bar { display:flex; align-items:flex-end; gap:24px; margin-bottom:20px; flex-wrap:wrap; }
+    .top-bar .form-group { flex:1; min-width:280px; }
+    .top-bar label { display:block; font-size:12px; font-weight:600; color:var(--text-sec); text-transform:uppercase; letter-spacing:.5px; margin-bottom:3px; }
+    .top-bar select { width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:6px; font-size:13px; font-family:inherit; }
+    .top-bar select:focus { outline:2px solid #0055a5; outline-offset:1px; }
+    .peel-legend { display:flex; gap:16px; flex-wrap:wrap; padding-bottom:4px; }
+    .peel-legend-item { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600; }
+    .peel-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+    .peel-dot.point { background:var(--point); }
+    .peel-dot.evidence { background:var(--evidence); }
+    .peel-dot.explain { background:var(--explain); }
+    .peel-dot.link { background:var(--link); }
+
+    /* Two-column main layout */
+    .main-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    @media (max-width:860px) { .main-grid { grid-template-columns:1fr; } }
+
+    /* Panels */
+    .panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .panel-hdr { padding:10px 16px; border-bottom:1px solid var(--border); font-weight:600; font-size:13px; color:var(--primary); text-transform:uppercase; letter-spacing:.5px; display:flex; align-items:center; gap:6px; }
+    .panel-body { padding:16px; }
+
+    /* Student paragraph */
+    .student-para {
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:15px;
+      line-height:1.9;
+      color:var(--text);
+    }
+    .peel-sent { padding:1px 0; transition:background .2s; }
+    .peel-sent.point { border-bottom:3px solid var(--point); }
+    .peel-sent.evidence { border-bottom:3px solid var(--evidence); }
+    .peel-sent.explain { border-bottom:3px solid var(--explain); }
+    .peel-sent.link { border-bottom:3px solid var(--link); }
+    .peel-tag {
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+      font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px;
+      padding:1px 5px; border-radius:3px; color:#fff; margin-right:3px; vertical-align:middle;
+    }
+    .peel-tag.point { background:var(--point); }
+    .peel-tag.evidence { background:var(--evidence); }
+    .peel-tag.explain { background:var(--explain); }
+    .peel-tag.link { background:var(--link); }
+    .para-meta { margin-top:10px; font-size:12px; color:var(--text-muted); font-style:italic; }
+
+    /* PEEL selector grid: 2x2 */
+    .peel-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media (max-width:500px) { .peel-grid { grid-template-columns:1fr; } }
+
+    .peel-card { border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .peel-card-hdr {
+      padding:8px 12px; font-size:12px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.5px; color:#fff; display:flex; align-items:center; gap:6px;
+    }
+    .peel-card-hdr.point { background:var(--point); }
+    .peel-card-hdr.evidence { background:var(--evidence); }
+    .peel-card-hdr.explain { background:var(--explain); }
+    .peel-card-hdr.link { background:var(--link); }
+
+    .peel-card-body { padding:8px; }
+
+    .fb-opt {
+      display:flex; gap:8px; padding:8px 10px; border:2px solid transparent;
+      border-radius:6px; cursor:pointer; transition:all .15s; margin-bottom:4px;
+    }
+    .fb-opt:last-child { margin-bottom:0; }
+    .fb-opt:hover { background:#f6f8fa; }
+    .fb-opt.sel.point { border-color:var(--point); background:#f3eef8; }
+    .fb-opt.sel.evidence { border-color:var(--evidence); background:#eaf3fb; }
+    .fb-opt.sel.explain { border-color:var(--explain); background:#edf7ee; }
+    .fb-opt.sel.link { border-color:var(--link); background:#fef0e5; }
+
+    .fb-opt input[type="radio"] { margin-top:1px; flex-shrink:0; accent-color:var(--primary); }
+    .fb-opt-content { flex:1; min-width:0; }
+    .fb-opt-title { font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px; }
+    .tone-badge { font-size:10px; padding:1px 6px; border-radius:10px; font-weight:600; }
+    .tone-pos { background:#dafbe1; color:#1a7f37; }
+    .tone-dev { background:#fff8c5; color:#9a6700; }
+    .fb-opt-text { font-size:12px; color:var(--text-sec); line-height:1.4; margin-top:3px; }
+
+    /* Output panel */
+    .right-col { align-self:start; position:sticky; top:20px; }
+    .output-hdr { display:flex; justify-content:space-between; align-items:center; }
+    .btn-clear {
+      padding:4px 10px; border:1px solid var(--border); border-radius:5px;
+      background:#fff; font-size:11px; font-family:inherit; cursor:pointer; color:var(--text-sec);
+    }
+    .btn-clear:hover { background:#f6f8fa; }
+    .output-empty { color:var(--text-muted); font-style:italic; padding:16px 0; text-align:center; font-size:13px; }
+
+    .out-block { margin-bottom:12px; padding:10px 14px; border-radius:6px; border-left:4px solid; }
+    .out-block.point { border-left-color:var(--point); background:#f9f5fd; }
+    .out-block.evidence { border-left-color:var(--evidence); background:#f0f7fc; }
+    .out-block.explain { border-left-color:var(--explain); background:#f2f9f2; }
+    .out-block.link { border-left-color:var(--link); background:#fdf3ec; }
+    .out-block h4 { margin:0 0 4px 0; font-size:13px; }
+    .out-block h4.point { color:var(--point); }
+    .out-block h4.evidence { color:var(--evidence); }
+    .out-block h4.explain { color:var(--explain); }
+    .out-block h4.link { color:var(--link); }
+    .out-block p { margin:0; font-size:13px; line-height:1.5; color:var(--text); }
+  </style>
+</head>
+<body>
+  <div class="banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="header">
+    <h1>PEEL Paragraph Feedback</h1>
+    <span class="badge">Interactive Demo</span>
+    <a href="index.html">&larr; Back to Feedback Builder</a>
+  </div>
+
+  <div class="container">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="form-group">
+        <label for="ddParagraph">Student paragraph</label>
+        <select id="ddParagraph"></select>
+      </div>
+      <div class="peel-legend">
+        <div class="peel-legend-item"><div class="peel-dot point"></div> Point</div>
+        <div class="peel-legend-item"><div class="peel-dot evidence"></div> Evidence</div>
+        <div class="peel-legend-item"><div class="peel-dot explain"></div> Explain</div>
+        <div class="peel-legend-item"><div class="peel-dot link"></div> Link</div>
+      </div>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="main-grid">
+
+      <!-- Left: paragraph + selectors -->
+      <div>
+        <!-- Student paragraph -->
+        <div class="panel" style="margin-bottom:16px;">
+          <div class="panel-hdr">Student's Paragraph</div>
+          <div class="panel-body">
+            <div class="student-para" id="paragraphDisplay"></div>
+            <div class="para-meta" id="paragraphMeta"></div>
+          </div>
+        </div>
+
+        <!-- PEEL selector grid -->
+        <div class="peel-grid" id="peelSelectors"></div>
+      </div>
+
+      <!-- Right: assembled output -->
+      <div class="right-col">
+        <div class="panel">
+          <div class="panel-hdr output-hdr">
+            <span>Assembled Feedback</span>
+            <button class="btn-clear" id="btnClear">Clear</button>
+          </div>
+          <div class="panel-body" id="feedbackOutput">
+            <div class="output-empty">Select feedback for each PEEL element to build paragraph feedback.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="peel.js"></script>
+</body>
+</html>

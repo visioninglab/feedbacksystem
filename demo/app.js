@@ -1,122 +1,251 @@
 // ============================================================
-// DATA — embedded from CSV files
+// SAMPLE DATA
 // ============================================================
 
-const STUDENTS = [
-  { StudentID: "STU001", StudentName: "Mei Chen", Email: "mei.chen@university.ac.uk", Module: "Intro to Psychology", Tutor: "Dr Sarah Mitchell" },
-  { StudentID: "STU002", StudentName: "James Okafor", Email: "james.okafor@university.ac.uk", Module: "Research Methods", Tutor: "Dr Sarah Mitchell" },
-  { StudentID: "STU003", StudentName: "Priya Sharma", Email: "priya.sharma@university.ac.uk", Module: "Cognitive Psychology", Tutor: "Dr Tom Reeves" },
-  { StudentID: "STU004", StudentName: "Liam Byrne", Email: "liam.byrne@university.ac.uk", Module: "Intro to Psychology", Tutor: "Dr Sarah Mitchell" },
-  { StudentID: "STU005", StudentName: "Aisha Khan", Email: "aisha.khan@university.ac.uk", Module: "Research Methods", Tutor: "Dr Tom Reeves" },
-  { StudentID: "STU006", StudentName: "Sophie Williams", Email: "sophie.williams@university.ac.uk", Module: "Cognitive Psychology", Tutor: "Dr Tom Reeves" },
-  { StudentID: "STU007", StudentName: "Daniel Adeyemi", Email: "daniel.adeyemi@university.ac.uk", Module: "Intro to Psychology", Tutor: "Dr Sarah Mitchell" },
-  { StudentID: "STU008", StudentName: "Emma Johansson", Email: "emma.johansson@university.ac.uk", Module: "Research Methods", Tutor: "Dr Sarah Mitchell" },
-  { StudentID: "STU009", StudentName: "Ryan Patel", Email: "ryan.patel@university.ac.uk", Module: "Cognitive Psychology", Tutor: "Dr Tom Reeves" },
-  { StudentID: "STU010", StudentName: "Chloe Dubois", Email: "chloe.dubois@university.ac.uk", Module: "Intro to Psychology", Tutor: "Dr Tom Reeves" }
-];
+const STUDENTS = {
+  "mei.chen@university.ac.uk": {
+    name: "Mei Chen",
+    email: "mei.chen@university.ac.uk",
+    module: "Introduction to Psychology",
+    assessment: "Essay 1: Discuss the role of early attachment in emotional development",
+    tutor: "Dr Sarah Mitchell",
+    date: "14 February 2026",
 
-const FEEDBACK_LIBRARY = [
-  { FeedbackID: "F01", Title: "Strong seminar participation", Category: "Engagement", FeedbackText: "You have contributed consistently and constructively to seminar discussions, offering thoughtful comments that build on the ideas of your peers. This level of engagement shows genuine intellectual curiosity.", Tags: "seminars,participation,discussion", DisplayOrder: 10 },
-  { FeedbackID: "F02", Title: "Improving lecture attendance", Category: "Engagement", FeedbackText: "Your attendance at lectures has been inconsistent this term. Regular attendance is important because lectures introduce core theoretical frameworks that you need for your assignments. I would encourage you to attend all remaining sessions.", Tags: "attendance,lectures,improvement", DisplayOrder: 20 },
-  { FeedbackID: "F03", Title: "Good use of office hours", Category: "Engagement", FeedbackText: "You have made effective use of office hours to clarify your understanding of key concepts. This proactive approach to seeking support is a strength that will serve you well throughout your studies.", Tags: "office-hours,proactive,support", DisplayOrder: 30 },
-  { FeedbackID: "F04", Title: "Limited engagement with reading", Category: "Engagement", FeedbackText: "Your contributions suggest you have not yet engaged fully with the recommended reading list. Engaging with primary sources is essential in psychology \u2014 try to read at least two journal articles per topic before each seminar.", Tags: "reading,preparation,journals", DisplayOrder: 40 },
-  { FeedbackID: "F05", Title: "Excellent application of theory", Category: "Academic Skills", FeedbackText: "You demonstrate a strong ability to apply psychological theories to real-world scenarios. Your essay connected attachment theory to clinical practice in a way that showed genuine understanding rather than surface-level description.", Tags: "theory,application,clinical", DisplayOrder: 10 },
-  { FeedbackID: "F06", Title: "Developing analytical skills", Category: "Academic Skills", FeedbackText: "Your analytical skills are developing well. To strengthen them further, try to move beyond describing what a study found and instead evaluate the methodology, consider alternative explanations, and discuss the implications.", Tags: "analysis,methodology,evaluation", DisplayOrder: 20 },
-  { FeedbackID: "F07", Title: "Strong data interpretation", Category: "Academic Skills", FeedbackText: "Your interpretation of statistical output in the lab report was accurate and clearly explained. You correctly identified the key findings and linked them back to the hypothesis.", Tags: "statistics,data,lab-report", DisplayOrder: 30 },
-  { FeedbackID: "F08", Title: "Needs stronger evidence base", Category: "Academic Skills", FeedbackText: "Your arguments would benefit from a stronger evidence base. Where you make claims about psychological phenomena, support them with specific research findings, including the authors and year of publication.", Tags: "evidence,research,citations", DisplayOrder: 40 },
-  { FeedbackID: "F09", Title: "Excellent critical evaluation", Category: "Critical Thinking", FeedbackText: "You show a strong capacity for critical evaluation. Your analysis of the methodological limitations in the Milgram replication studies was particularly well-reasoned, weighing ethical and validity concerns with nuance.", Tags: "critical-analysis,methodology,ethics", DisplayOrder: 10 },
-  { FeedbackID: "F10", Title: "Moving beyond description", Category: "Critical Thinking", FeedbackText: "Your work tends to describe theories and findings rather than critically evaluate them. Try to ask: What are the strengths and limitations of this study? How could it be improved? Do the conclusions follow from the evidence?", Tags: "description,evaluation,improvement", DisplayOrder: 20 },
-  { FeedbackID: "F11", Title: "Good comparison of perspectives", Category: "Critical Thinking", FeedbackText: "You effectively compared the cognitive and behaviourist perspectives on learning, identifying where they agree, diverge, and what each perspective fails to explain. This kind of comparative analysis is exactly what we look for.", Tags: "comparison,perspectives,analysis", DisplayOrder: 30 },
-  { FeedbackID: "F12", Title: "Developing independent argument", Category: "Critical Thinking", FeedbackText: "You are beginning to form your own arguments, which is encouraging. To develop this further, try stating your position explicitly at the start of each section and then marshalling evidence to support it.", Tags: "argument,independence,structure", DisplayOrder: 40 },
-  { FeedbackID: "F13", Title: "Well-organised essay", Category: "Structure", FeedbackText: "Your essay was clearly organised with a logical progression from introduction through to conclusion. Each paragraph addressed a distinct point and linked back to your central argument. This made your work easy to follow.", Tags: "organisation,paragraphs,flow", DisplayOrder: 10 },
-  { FeedbackID: "F14", Title: "Improve paragraph structure", Category: "Structure", FeedbackText: "Some paragraphs in your essay tried to cover too many ideas at once. Aim for one main point per paragraph: a topic sentence, supporting evidence, analysis, and a linking sentence to the next paragraph.", Tags: "paragraphs,topic-sentences,clarity", DisplayOrder: 20 },
-  { FeedbackID: "F15", Title: "Strong introduction framing", Category: "Structure", FeedbackText: "Your introduction effectively framed the question, defined key terms, and outlined the structure of your argument. This gave the reader a clear roadmap for what followed.", Tags: "introduction,framing,definitions", DisplayOrder: 30 },
-  { FeedbackID: "F16", Title: "Conclusion needs development", Category: "Structure", FeedbackText: "Your conclusion was brief and did not fully synthesise your arguments. A strong conclusion should summarise your key findings, state how they answer the question, and suggest implications or areas for further research.", Tags: "conclusion,synthesis,implications", DisplayOrder: 40 },
-  { FeedbackID: "F17", Title: "Clear and concise writing style", Category: "Writing", FeedbackText: "Your writing is clear, concise, and appropriately academic in tone. You avoid unnecessary jargon while still using technical terminology accurately. This is a real strength of your work.", Tags: "clarity,tone,academic-writing", DisplayOrder: 10 },
-  { FeedbackID: "F18", Title: "Improve academic tone", Category: "Writing", FeedbackText: "Parts of your essay used informal language that is not appropriate for academic writing. Avoid phrases like \u201ca lot of\u201d or \u201cbasically\u201d and replace them with more precise academic alternatives such as \u201ca substantial body of\u201d or \u201cfundamentally.\u201d", Tags: "tone,formality,precision", DisplayOrder: 20 },
-  { FeedbackID: "F19", Title: "Good use of technical terminology", Category: "Writing", FeedbackText: "You used psychological terminology accurately and consistently throughout your report. Terms like \u201coperationalisation,\u201d \u201cecological validity,\u201d and \u201cconfounding variable\u201d were applied correctly in context.", Tags: "terminology,accuracy,vocabulary", DisplayOrder: 30 },
-  { FeedbackID: "F20", Title: "Proofread for clarity", Category: "Writing", FeedbackText: "There are several sentences in your essay that are unclear due to grammatical errors or overly long constructions. I recommend reading your work aloud before submitting \u2014 this often helps identify sentences that need simplifying.", Tags: "proofreading,grammar,clarity", DisplayOrder: 40 },
-  { FeedbackID: "F21", Title: "Accurate APA referencing", Category: "Referencing", FeedbackText: "Your reference list is accurately formatted in APA 7th edition style, and your in-text citations are consistently and correctly placed. This is an important academic skill that you have clearly mastered.", Tags: "APA,citations,reference-list", DisplayOrder: 10 },
-  { FeedbackID: "F22", Title: "Inconsistent citation format", Category: "Referencing", FeedbackText: "Your in-text citations are inconsistently formatted. Remember: for one or two authors, cite both names every time. For three or more authors, use the first author followed by \u201cet al.\u201d from the first citation. Check the APA 7th edition guidelines.", Tags: "APA,format,consistency", DisplayOrder: 20 },
-  { FeedbackID: "F23", Title: "Broaden source range", Category: "Referencing", FeedbackText: "You relied heavily on textbook sources. To strengthen your work, include peer-reviewed journal articles \u2014 aim for at least five primary sources per 2000-word essay. Use databases like PsycINFO or Google Scholar.", Tags: "sources,journals,PsycINFO", DisplayOrder: 30 },
-  { FeedbackID: "F24", Title: "Missing references", Category: "Referencing", FeedbackText: "Several claims in your essay were not supported by citations. Every factual claim or theoretical statement that is not common knowledge needs a reference. Unreferenced claims weaken your argument significantly.", Tags: "missing-citations,evidence,academic-integrity", DisplayOrder: 40 },
-  { FeedbackID: "F25", Title: "Prepare for the next assignment", Category: "Next Steps", FeedbackText: "For your upcoming essay on developmental psychology, start by reviewing the marking criteria and planning your structure before you begin writing. Allocate time for at least two drafts.", Tags: "planning,time-management,drafts", DisplayOrder: 10 },
-  { FeedbackID: "F26", Title: "Visit the Academic Skills Centre", Category: "Next Steps", FeedbackText: "I recommend booking a session with the Academic Skills Centre to work on your essay planning and critical writing techniques. They offer one-to-one appointments and drop-in workshops.", Tags: "support,skills-centre,workshops", DisplayOrder: 20 },
-  { FeedbackID: "F27", Title: "Engage with feedback", Category: "Next Steps", FeedbackText: "Take time to read through all your feedback comments carefully. Identify one or two areas to focus on for your next piece of work, and keep a note of the progress you make. Feedback is most useful when you act on it.", Tags: "reflection,improvement,action-plan", DisplayOrder: 30 },
-  { FeedbackID: "F28", Title: "Set up a study group", Category: "Next Steps", FeedbackText: "Consider forming a study group with your peers. Discussing psychological theories with others helps deepen understanding and exposes you to different perspectives that can enrich your own thinking.", Tags: "peer-learning,study-group,collaboration", DisplayOrder: 40 },
-  { FeedbackID: "F29", Title: "Outstanding work overall", Category: "Overall", FeedbackText: "This was an outstanding piece of work that demonstrated deep understanding, critical analysis, and clear communication. You should be very pleased with your progress. Keep up this standard.", Tags: "excellent,praise,progress", DisplayOrder: 10 },
-  { FeedbackID: "F30", Title: "Good progress this term", Category: "Overall", FeedbackText: "You have made good progress this term. Your understanding of core psychological concepts is solid, and with further development of your critical analysis skills, you are well placed to achieve strong marks going forward.", Tags: "progress,encouraging,potential", DisplayOrder: 20 },
-  { FeedbackID: "F31", Title: "Satisfactory but room to improve", Category: "Overall", FeedbackText: "Your work meets the basic requirements but there is significant room for improvement. Focus on the specific areas highlighted above, and do come to office hours if you would like to discuss strategies for raising your grade.", Tags: "satisfactory,improvement,office-hours", DisplayOrder: 30 },
-  { FeedbackID: "F32", Title: "Concerns about progress", Category: "Overall", FeedbackText: "I have some concerns about your progress this term. Please do make an appointment to see me during office hours so we can discuss a plan to help you get back on track. Support is available and I want to make sure you access it.", Tags: "concerns,support,meeting", DisplayOrder: 40 },
-  { FeedbackID: "F33", Title: "Strong topic sentence (Point)", Category: "PEEL Structure", FeedbackText: "Your paragraph opens with a clear and focused topic sentence that tells the reader exactly what the paragraph will argue. For example, your sentence \u2018Bowlby\u2019s attachment theory provides a compelling explanation for the long-term effects of early caregiving on emotional development\u2019 immediately establishes the argument and sets up the rest of the paragraph effectively. This is exactly how a PEEL paragraph should begin.", Tags: "PEEL,point,topic-sentence,paragraph", DisplayOrder: 10 },
-  { FeedbackID: "F34", Title: "Topic sentence needs focus (Point)", Category: "PEEL Structure", FeedbackText: "Your paragraph begins too broadly and does not clearly state what the paragraph will argue. For example, writing \u2018There are many theories about attachment\u2019 does not give the reader a specific direction. A stronger topic sentence would be: \u2018Bowlby\u2019s attachment theory suggests that disrupted early bonds can lead to lasting difficulties in emotional regulation.\u2019 Notice how the revised version names the theory, states a specific claim, and signals what evidence will follow.", Tags: "PEEL,point,topic-sentence,improvement", DisplayOrder: 20 },
-  { FeedbackID: "F35", Title: "Effective use of evidence (Evidence)", Category: "PEEL Structure", FeedbackText: "You support your point with well-chosen evidence that directly strengthens your argument. For example, you cited \u2018Hazan and Shaver (1987) found that adults who reported insecure attachment in childhood were significantly more likely to describe their romantic relationships as anxious or avoidant.\u2019 This is strong because you named the researchers, described the finding specifically, and chose a study that directly supports your topic sentence about attachment and emotional development.", Tags: "PEEL,evidence,citations,research", DisplayOrder: 30 },
-  { FeedbackID: "F36", Title: "Evidence needs strengthening (Evidence)", Category: "PEEL Structure", FeedbackText: "Your paragraph makes claims but does not provide sufficient evidence to support them. For example, you wrote \u2018Research has shown that attachment affects later relationships\u2019 without citing a specific study. A stronger version would be: \u2018Hazan and Shaver (1987) surveyed 620 adults and found that those with insecure childhood attachment were more likely to report anxiety and avoidance in romantic relationships.\u2019 Always name the researchers, describe the method briefly, and state the specific finding.", Tags: "PEEL,evidence,citations,improvement", DisplayOrder: 40 },
-  { FeedbackID: "F37", Title: "Clear explanation and analysis (Explain)", Category: "PEEL Structure", FeedbackText: "Your explanation effectively connects the evidence back to your argument and shows critical thinking. For example, you wrote: \u2018This finding supports Bowlby\u2019s prediction that internal working models formed in infancy shape expectations in later relationships. However, the reliance on retrospective self-report means participants may have reconstructed their childhood experiences through the lens of their current relationship difficulties.\u2019 This is excellent because you explained why the evidence matters and then evaluated its limitations.", Tags: "PEEL,explain,analysis,critical-thinking", DisplayOrder: 50 },
-  { FeedbackID: "F38", Title: "Explanation needs depth (Explain)", Category: "PEEL Structure", FeedbackText: "After presenting your evidence, you moved on without explaining what it means or why it matters. For example, after citing Hazan and Shaver\u2019s findings, you simply moved to the next study. Instead, you should explain: Why does this evidence support your point? What does it tell us about the theory? Are there any limitations? A stronger explanation would be: \u2018This suggests that early attachment experiences create internal working models that persist into adulthood, though the correlational design means we cannot confirm a causal relationship between childhood attachment and adult relationship patterns.\u2019", Tags: "PEEL,explain,analysis,improvement", DisplayOrder: 60 },
-  { FeedbackID: "F39", Title: "Strong linking sentence (Link)", Category: "PEEL Structure", FeedbackText: "Your paragraph ends with an effective linking sentence that connects back to the essay question and transitions to the next point. For example, you wrote: \u2018While attachment theory offers a strong framework for understanding emotional development, it does not fully account for the role of peer relationships, which will be examined in the following section.\u2019 This works well because it summarises the paragraph\u2019s conclusion, acknowledges a limitation, and signals what comes next.", Tags: "PEEL,link,transition,paragraph", DisplayOrder: 70 },
-  { FeedbackID: "F40", Title: "Linking sentence needs work (Link)", Category: "PEEL Structure", FeedbackText: "Your paragraph ends abruptly without linking back to the essay question or transitioning to the next point. Ending with a piece of evidence or a standalone fact leaves the reader without a sense of closure. A strong linking sentence should do two things: (1) briefly restate how the paragraph\u2019s argument answers the essay question, and (2) signal the direction of the next paragraph. For example: \u2018Although attachment theory provides a useful lens for understanding emotional development, it is important to also consider social learning theory, which emphasises the role of observed behaviour in shaping relationship patterns.\u2019", Tags: "PEEL,link,transition,improvement", DisplayOrder: 80 }
-];
+    structure: {
+      overall: "Your essay has a clear sense of organisation and a logical progression of ideas. You open with a well-framed introduction that defines attachment and signals the structure of your argument. The body paragraphs each address a distinct aspect of attachment theory, which makes the essay easy to follow. However, some paragraphs attempt to cover too much ground, which dilutes the focus of individual points.",
 
-const INTRO_PARAGRAPHS = [
-  { IntroID: "INT01", IntroText: "Thank you for your hard work this term. Below you will find personalised feedback on your recent submission. Please read each section carefully and use the suggestions to guide your preparation for upcoming assessments." },
-  { IntroID: "INT02", IntroText: "I have put together some feedback on your work based on your recent assignment. The comments below highlight your strengths and identify specific areas where you can improve. I encourage you to review these and come to office hours if you have any questions." },
-  { IntroID: "INT03", IntroText: "Here is your personalised feedback for this module. Each section covers a different aspect of your academic performance. I hope you find these comments useful as you continue to develop your skills." },
-  { IntroID: "INT04", IntroText: "Welcome to your feedback newsletter. The sections below contain targeted comments about different aspects of your work. Please take time to reflect on each point and consider how you can apply these suggestions to your next assignment." }
-];
+      introduction: "Your introduction is one of the stronger parts of this essay. You clearly define what attachment theory is, name the key theorists you will discuss (Bowlby, Ainsworth, Hazan and Shaver), and state the position you intend to argue. The reader knows exactly what to expect from the rest of the essay. One area for improvement: your introduction could more explicitly address the specific question about emotional development rather than attachment theory in general.",
 
-const TEMPLATE = {
-  FooterText: "This feedback was compiled by your module tutor using the Psychology Department Feedback System. If you have questions about any of the comments, please book an appointment during office hours. We are here to support your learning.",
-  AccessibilityStatement: "If you need this feedback in another format (for example, large print, audio, or a different file type), please reply to this email and we will provide an alternative version within five working days."
+      conclusion: "Your conclusion summarises the main points but reads more like a list of what you covered rather than a synthesis. A stronger conclusion would draw the threads together, state clearly how the evidence answers the essay question, and briefly acknowledge limitations or areas for further research. At the moment, it feels like the essay simply stops rather than reaching a considered endpoint.",
+
+      tips: [
+        "Limit each body paragraph to one main argument \u2014 if you find yourself writing more than 200 words in a single paragraph, consider splitting it.",
+        "Use the first sentence of each paragraph as a topic sentence that states the paragraph\u2019s argument, not just its topic.",
+        "In your conclusion, avoid introducing new evidence. Instead, synthesise your findings and answer the question directly.",
+        "Try outlining your essay structure before writing \u2014 this helps ensure each paragraph has a distinct role."
+      ]
+    },
+
+    understanding: {
+      overall: "You demonstrate a solid grasp of the core theories in this area. Your discussion of Bowlby\u2019s attachment theory and Ainsworth\u2019s Strange Situation is accurate and shows genuine engagement with the material. You correctly distinguish between secure and insecure attachment styles and link them to developmental outcomes.",
+
+      content: "Your choice of content is appropriate and well-targeted. You draw on the key studies (Bowlby 1944, Ainsworth 1978, Hazan and Shaver 1987) and use them to build a coherent narrative about how early attachment influences later emotional functioning. The inclusion of Rutter\u2019s Romanian orphan studies adds nuance by challenging the idea that deprivation effects are permanent.",
+
+      summarising: "Your summaries of individual studies are generally accurate, though at times you spend too long describing what a study did rather than explaining what it means. For example, your paragraph on the Strange Situation spends six sentences describing the methodology but only two sentences on the findings and their implications. Aim for a tighter balance: describe briefly, then analyse in depth.",
+
+      tips: [
+        "When summarising a study, use the formula: who studied what, how they did it (one sentence), what they found, and what it means for the broader argument.",
+        "Avoid listing multiple studies without connecting them \u2014 explain how each one builds on, supports, or challenges the previous point.",
+        "Consider including a more recent study (post-2000) to show awareness of how the field has developed.",
+        "Check that every study you cite links directly back to the essay question about emotional development."
+      ]
+    },
+
+    argument: {
+      overall: "You are beginning to develop a clear argumentative voice, which is encouraging. Your essay does take a position \u2014 that early attachment has significant but not deterministic effects on emotional development \u2014 and you return to this idea at several points. This gives the essay a sense of direction.",
+
+      framing: "Your argument is most effective in the sections on Bowlby and on cross-cultural critiques, where you weigh evidence on both sides before stating your view. However, in other sections, particularly the discussion of Hazan and Shaver, the argument drifts into description. You present the findings but do not explicitly state what they tell us about your central claim. Every paragraph should advance your argument, not just present information.",
+
+      tips: [
+        "At the start of each paragraph, state what you are going to argue, not just what you are going to describe.",
+        "After presenting evidence, always include a sentence that explicitly links it back to your central argument.",
+        "Use phrases like \u2018This supports the claim that...\u2019, \u2018However, this evidence is limited because...\u2019, or \u2018This suggests that the relationship between attachment and emotional development is more complex than Bowlby proposed.\u2019",
+        "Consider presenting a counter-argument and then explaining why your position is still supported \u2014 this shows critical depth."
+      ]
+    },
+
+    writing: {
+      overall: "Your writing is generally clear and readable. You use an appropriate academic tone throughout, and your sentence structure is varied enough to maintain the reader\u2019s engagement. There are a few areas where tightening the language would improve clarity.",
+
+      conciseness: "Some sentences are longer than necessary. For example, \u2018It is widely acknowledged by many researchers in the field of developmental psychology that attachment plays an important role\u2019 could be shortened to \u2018Developmental psychologists widely acknowledge the importance of attachment.\u2019 Aim for precision over wordiness.",
+
+      clarity: "Most of your writing is easy to follow. One area to watch: some sentences contain multiple clauses separated by commas, which can make the meaning ambiguous. If a sentence needs more than two commas, consider breaking it into two sentences.",
+
+      grammar: "Your grammar is generally accurate. Watch for subject-verb agreement in longer sentences, and make sure that pronouns clearly refer to their antecedents. There are two instances where \u2018their\u2019 is used ambiguously (paragraphs 3 and 5) \u2014 re-read these to check the reference is clear.",
+
+      tips: [
+        "Read your work aloud before submitting \u2014 if you run out of breath, the sentence is too long.",
+        "Replace vague phrases (\u2018a lot of research\u2019, \u2018it is important\u2019) with specific claims (\u2018three longitudinal studies\u2019, \u2018attachment security predicts\u2019).",
+        "Use the active voice where possible: \u2018Bowlby argued\u2019 is stronger than \u2018It was argued by Bowlby.\u2019",
+        "Proofread specifically for pronoun clarity on your next draft."
+      ]
+    },
+
+    referencing: {
+      overall: "Your referencing is mostly accurate and consistent. You use APA 7th edition style correctly for in-text citations and your reference list is well-formatted. This is an important academic skill that you are developing well.",
+
+      citing: "Your in-text citations are correctly placed and formatted. You consistently use (Author, Year) format and handle multiple authors appropriately. One issue: there are two places in the essay where you make factual claims without a supporting citation (the opening sentence of paragraph 4 and the claim about \u2018most children\u2019 in paragraph 6). Every specific claim needs a reference.",
+
+      referenceList: "Your reference list is well-organised and mostly accurate. One entry (Hazan & Shaver) is missing the journal volume number, and the Rutter et al. entry uses \u2018and\u2019 instead of \u2018&\u2019 before the final author. These are minor issues but worth correcting for precision.",
+
+      tips: [
+        "Before submitting, do a final check: read each paragraph and confirm that every factual claim has an in-text citation.",
+        "For studies with three or more authors, use \u2018et al.\u2019 from the first citation (APA 7th edition rule).",
+        "Include at least five peer-reviewed journal articles per 2000-word essay \u2014 you currently have four, so add one more primary source.",
+        "Use PsycINFO or Google Scholar to find recent studies that either support or challenge the classic findings you have cited."
+      ]
+    }
+  },
+
+  "james.okafor@university.ac.uk": {
+    name: "James Okafor",
+    email: "james.okafor@university.ac.uk",
+    module: "Research Methods in Psychology",
+    assessment: "Essay 1: Evaluate the contribution of attachment theory to developmental psychology",
+    tutor: "Dr Sarah Mitchell",
+    date: "14 February 2026",
+
+    structure: {
+      overall: "Your essay would benefit from a clearer organisational framework. Currently, ideas are presented in an order that feels more associative than planned \u2014 you move between topics without clear transitions, which makes it difficult for the reader to follow your argument.",
+
+      introduction: "Your introduction provides some context but does not clearly state what position you will take or how the essay will be structured. The reader finishes the introduction unsure of what specific question you are answering. A strong introduction should define key terms, state your central argument, and briefly outline the structure of what follows.",
+
+      conclusion: "Your conclusion is very brief (two sentences) and does not synthesise the arguments you have made. It simply states that \u2018attachment theory is important,\u2019 which is too general. Revisit your evidence, draw it together, and make a clear evaluative statement about how much attachment theory has contributed to developmental psychology.",
+
+      tips: [
+        "Before you start writing, create a paragraph plan: list the main point of each paragraph and check they follow a logical order.",
+        "Start your introduction with a clear definition, then state your position, then outline the essay structure in one sentence.",
+        "Each paragraph should begin with a topic sentence that tells the reader what this paragraph will argue.",
+        "Write your conclusion last, after re-reading the essay, so it genuinely synthesises what you have written."
+      ]
+    },
+
+    understanding: {
+      overall: "You show a basic understanding of attachment theory but rely too heavily on textbook summaries rather than engaging with the primary research. Your discussion of Bowlby is accurate at a surface level but lacks the depth needed at this level of study.",
+
+      content: "You mention Bowlby and Ainsworth but do not discuss their work in enough detail. For example, you describe the Strange Situation as \u2018an experiment about attachment\u2019 without explaining the method, the specific attachment styles identified, or the significance of the findings. At university level, you need to engage with the detail of research studies.",
+
+      summarising: "When you do cite studies, you tend to paraphrase in very general terms. Phrases like \u2018research has shown that attachment is important\u2019 do not demonstrate understanding. Instead, describe specifically what the researchers did, what they found, and what the findings mean in the context of your argument.",
+
+      tips: [
+        "For each key study, write one sentence on the method, one on the findings, and one on the implications.",
+        "Move beyond textbook descriptions \u2014 read at least two original journal articles and cite them directly.",
+        "When you write \u2018research shows,\u2019 always ask yourself: which research? Name the researchers and the year.",
+        "Focus on three or four studies in depth rather than mentioning many studies superficially."
+      ]
+    },
+
+    argument: {
+      overall: "Your essay currently reads more as a description of attachment theory than an evaluation of it. The essay question asks you to evaluate the contribution, which means you need to weigh up strengths and weaknesses, not just describe what the theory says.",
+
+      framing: "You do not explicitly state a position in the essay. A strong evaluative essay would open with a claim (e.g., \u2018Attachment theory has made a significant but not uncontested contribution to developmental psychology\u2019) and then use evidence to support and challenge that claim throughout. At the moment, each paragraph presents information without connecting it to a central argument.",
+
+      tips: [
+        "Rewrite your introduction to include a clear evaluative statement that answers the question directly.",
+        "After each piece of evidence, add a sentence explaining whether it supports or challenges the value of attachment theory.",
+        "Try the \u2018Point, Evidence, Explain\u2019 structure: state your point, provide the evidence, then explain what it means for your argument.",
+        "Include at least one counter-argument (e.g., cross-cultural criticisms of attachment theory) and explain how it affects your evaluation."
+      ]
+    },
+
+    writing: {
+      overall: "Your writing is generally understandable but uses informal language in several places that is not appropriate for academic writing.",
+
+      conciseness: "Some sections contain unnecessary repetition. For example, you make the same point about attachment being \u2018important for development\u2019 in three separate paragraphs without adding new information each time. Make each sentence count.",
+
+      clarity: "Your main ideas are usually clear, but some sentences are ambiguous because they lack specificity. \u2018This shows that attachment matters\u2019 could mean many things \u2014 state precisely what the evidence shows and why it matters.",
+
+      grammar: "Watch for informal expressions: \u2018a lot of,\u2019 \u2018basically,\u2019 \u2018kids\u2019 (use \u2018children\u2019), and \u2018really important\u2019 (use \u2018significant\u2019 or \u2018critical\u2019). Academic writing requires a formal, precise register. There are also several run-on sentences that need to be split.",
+
+      tips: [
+        "Replace every instance of informal language with a formal alternative before submitting.",
+        "Read each paragraph and check: does every sentence add something new? If not, remove the repetition.",
+        "Keep sentences under 25 words where possible \u2014 shorter sentences are usually clearer.",
+        "Use the university\u2019s Academic Skills Centre \u2014 they offer excellent workshops on academic writing style."
+      ]
+    },
+
+    referencing: {
+      overall: "Your referencing needs significant improvement. There are multiple places where claims are unsupported by citations, and the reference list contains formatting errors.",
+
+      citing: "Several paragraphs make claims about research findings without citing the source. For example, you write \u2018Studies have shown that securely attached children do better in school\u2019 without naming the study. This weakens your argument and risks academic integrity concerns. Every factual claim needs a citation.",
+
+      referenceList: "Your reference list has four entries but your essay mentions at least six sources by name. Every source cited in the text must appear in the reference list, and vice versa. Additionally, two entries are missing publication years and one is formatted incorrectly (wrong use of italics).",
+
+      tips: [
+        "As a rule: if you did not discover a fact through your own experience, it needs a reference.",
+        "Use a reference manager (such as Zotero or Mendeley) to help format citations correctly.",
+        "Cross-check your reference list against your in-text citations before submitting \u2014 they must match exactly.",
+        "Aim for a minimum of five peer-reviewed sources per 2000-word essay."
+      ]
+    }
+  }
 };
 
-const CATEGORY_ORDER = [
-  "Engagement", "Academic Skills", "Critical Thinking", "PEEL Structure",
-  "Structure", "Writing", "Referencing", "Next Steps", "Overall"
+// ============================================================
+// SECTION CONFIG
+// ============================================================
+
+const SECTIONS = [
+  {
+    key: "structure",
+    title: "Structure",
+    icon: "\ud83c\udfd7\ufe0f",
+    cssClass: "section-structure",
+    subsections: [
+      { key: "overall", title: "Overview" },
+      { key: "introduction", title: "Introduction" },
+      { key: "conclusion", title: "Conclusion" }
+    ]
+  },
+  {
+    key: "understanding",
+    title: "Understanding",
+    icon: "\ud83d\udca1",
+    cssClass: "section-understanding",
+    subsections: [
+      { key: "overall", title: "Overview" },
+      { key: "content", title: "Content Selection" },
+      { key: "summarising", title: "Summarising Research" }
+    ]
+  },
+  {
+    key: "argument",
+    title: "Argument",
+    icon: "\ud83c\udfaf",
+    cssClass: "section-argument",
+    subsections: [
+      { key: "overall", title: "Overview" },
+      { key: "framing", title: "Framing Your Argument" }
+    ]
+  },
+  {
+    key: "writing",
+    title: "Academic Writing Skills",
+    icon: "\u270d\ufe0f",
+    cssClass: "section-writing",
+    subsections: [
+      { key: "overall", title: "Overview" },
+      { key: "conciseness", title: "Conciseness" },
+      { key: "clarity", title: "Clarity" },
+      { key: "grammar", title: "Grammar & Punctuation" }
+    ]
+  },
+  {
+    key: "referencing",
+    title: "Referencing",
+    icon: "\ud83d\udcda",
+    cssClass: "section-referencing",
+    subsections: [
+      { key: "overall", title: "Overview" },
+      { key: "citing", title: "In-Text Citations" },
+      { key: "referenceList", title: "Reference List" }
+    ]
+  }
 ];
 
-const CATEGORY_CSS = {
-  "Engagement": "engagement",
-  "Academic Skills": "academic-skills",
-  "Critical Thinking": "critical-thinking",
-  "PEEL Structure": "peel-structure",
-  "Structure": "structure",
-  "Writing": "writing",
-  "Referencing": "referencing",
-  "Next Steps": "next-steps",
-  "Overall": "overall"
-};
-
 // ============================================================
-// STATE
-// ============================================================
-
-const state = {
-  selectedStudent: null,
-  selectedIntro: INTRO_PARAGRAPHS[0],
-  selectedFeedback: new Set(),
-  customNote: "",
-  searchText: "",
-  collapsedCategories: new Set()
-};
-
-// ============================================================
-// DOM REFERENCES
+// DOM
 // ============================================================
 
 const dom = {
-  ddStudent: document.getElementById("ddStudent"),
-  lblModule: document.getElementById("lblModule"),
-  ddIntro: document.getElementById("ddIntro"),
-  txtSearch: document.getElementById("txtSearch"),
-  categorySections: document.getElementById("categorySections"),
-  lblSelectionCount: document.getElementById("lblSelectionCount"),
-  txtCustomNote: document.getElementById("txtCustomNote"),
-  btnSaveDraft: document.getElementById("btnSaveDraft"),
-  btnSubmitSend: document.getElementById("btnSubmitSend"),
-  previewHtml: document.getElementById("previewHtml"),
-  previewPlain: document.getElementById("previewPlain"),
-  toastContainer: document.getElementById("toastContainer")
+  loginPage: document.getElementById("loginPage"),
+  feedbackPage: document.getElementById("feedbackPage"),
+  loginEmail: document.getElementById("loginEmail"),
+  btnLogin: document.getElementById("btnLogin"),
+  btnLogout: document.getElementById("btnLogout"),
+  navUser: document.getElementById("navUser"),
+  feedbackContent: document.getElementById("feedbackContent")
 };
 
 // ============================================================
@@ -124,437 +253,119 @@ const dom = {
 // ============================================================
 
 function escapeHtml(text) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-function formatDate() {
-  const d = new Date();
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-}
-
-function showToast(message, type) {
-  const toast = document.createElement("div");
-  toast.className = "toast " + (type || "info");
-  toast.textContent = message;
-  dom.toastContainer.appendChild(toast);
-  setTimeout(() => {
-    toast.style.transition = "opacity 0.3s";
-    toast.style.opacity = "0";
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  const d = document.createElement("div");
+  d.textContent = text;
+  return d.innerHTML;
 }
 
 // ============================================================
-// POPULATE CONTROLS
+// RENDER FEEDBACK PAGE
 // ============================================================
 
-function populateStudents() {
-  STUDENTS.forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s.StudentID;
-    opt.textContent = s.StudentName;
-    dom.ddStudent.appendChild(opt);
-  });
-}
-
-function populateIntros() {
-  INTRO_PARAGRAPHS.forEach(ip => {
-    const opt = document.createElement("option");
-    opt.value = ip.IntroID;
-    opt.textContent = ip.IntroID + " \u2014 " + ip.IntroText.substring(0, 60) + "...";
-    dom.ddIntro.appendChild(opt);
-  });
-}
-
-// ============================================================
-// GROUP FEEDBACK BY CATEGORY
-// ============================================================
-
-function getGroupedFeedback() {
-  const search = state.searchText.toLowerCase();
-  const grouped = {};
-  CATEGORY_ORDER.forEach(cat => { grouped[cat] = []; });
-
-  FEEDBACK_LIBRARY.forEach(item => {
-    if (search) {
-      const match = item.Title.toLowerCase().includes(search) ||
-        item.Tags.toLowerCase().includes(search) ||
-        item.FeedbackText.toLowerCase().includes(search);
-      if (!match) return;
-    }
-    grouped[item.Category].push(item);
-  });
-
-  // Sort within each category
-  Object.keys(grouped).forEach(cat => {
-    grouped[cat].sort((a, b) => a.DisplayOrder - b.DisplayOrder);
-  });
-
-  return grouped;
-}
-
-// ============================================================
-// RENDER CATEGORY SECTIONS
-// ============================================================
-
-function renderCategories() {
-  const grouped = getGroupedFeedback();
+function renderFeedback(student) {
   let html = "";
 
-  CATEGORY_ORDER.forEach(cat => {
-    const items = grouped[cat];
-    if (items.length === 0) return;
+  // Welcome banner
+  html += '<div class="welcome-banner">';
+  html += '<div class="welcome-name">Welcome, ' + escapeHtml(student.name) + '</div>';
+  html += '<div class="welcome-meta">';
+  html += '<span>' + escapeHtml(student.module) + '</span>';
+  html += '<span>' + escapeHtml(student.assessment) + '</span>';
+  html += '</div>';
+  html += '</div>';
 
-    const cssClass = CATEGORY_CSS[cat];
-    const collapsed = state.collapsedCategories.has(cat);
-    const selectedInCat = items.filter(i => state.selectedFeedback.has(i.FeedbackID)).length;
-    const countLabel = selectedInCat > 0 ? selectedInCat + "/" + items.length : items.length;
+  // Intro
+  html += '<div class="intro-block">';
+  html += 'We have assessed your essay and here is feedback on your current performance and how you can improve on future assignments. Each section below covers a different aspect of your work. Please read each comment carefully and use the tips to guide your development.';
+  html += '</div>';
 
-    html += '<div class="cat-section">';
-    html += '<div class="cat-header ' + cssClass + (collapsed ? " collapsed" : "") + '" data-category="' + escapeHtml(cat) + '">';
-    html += escapeHtml(cat);
-    html += ' <span class="cat-count">' + countLabel + '</span>';
-    html += '<span class="chevron">\u25BC</span>';
+  // Sections
+  SECTIONS.forEach(section => {
+    const data = student[section.key];
+    if (!data) return;
+
+    html += '<div class="fb-section ' + section.cssClass + '">';
+
+    // Header
+    html += '<div class="fb-section-header">';
+    html += '<div class="fb-section-icon">' + section.icon + '</div>';
+    html += '<div class="fb-section-title">' + escapeHtml(section.title) + '</div>';
     html += '</div>';
-    html += '<div class="cat-body' + (collapsed ? " hidden" : "") + '">';
 
-    items.forEach(item => {
-      const checked = state.selectedFeedback.has(item.FeedbackID);
-      const preview = item.FeedbackText.length > 120
-        ? item.FeedbackText.substring(0, 120) + "..."
-        : item.FeedbackText;
+    // Body
+    html += '<div class="fb-section-body">';
 
-      html += '<div class="fb-item' + (checked ? " selected" : "") + '" data-id="' + item.FeedbackID + '">';
-      html += '<input type="checkbox"' + (checked ? " checked" : "") + ' aria-label="Select ' + escapeHtml(item.Title) + '">';
-      html += '<div class="fb-item-content">';
-      html += '<div class="fb-item-title"><span class="fb-item-id">' + item.FeedbackID + '</span>' + escapeHtml(item.Title) + '</div>';
-      html += '<div class="fb-item-text">' + escapeHtml(preview) + '</div>';
-      html += '</div></div>';
+    // Subsections
+    section.subsections.forEach((sub, i) => {
+      if (!data[sub.key]) return;
+      if (i > 0) html += '<hr class="fb-divider">';
+      html += '<div class="fb-subsection">';
+      if (sub.key !== "overall") {
+        html += '<div class="fb-subsection-title">' + escapeHtml(sub.title) + '</div>';
+      }
+      html += '<div class="fb-text">' + escapeHtml(data[sub.key]) + '</div>';
+      html += '</div>';
     });
 
-    html += '</div></div>';
-  });
-
-  dom.categorySections.innerHTML = html;
-
-  // Update count
-  dom.lblSelectionCount.textContent = state.selectedFeedback.size + " item" + (state.selectedFeedback.size !== 1 ? "s" : "") + " selected";
-
-  updateButtons();
-}
-
-// ============================================================
-// TOGGLE SELECTION
-// ============================================================
-
-function toggleFeedback(feedbackId) {
-  if (state.selectedFeedback.has(feedbackId)) {
-    state.selectedFeedback.delete(feedbackId);
-  } else {
-    state.selectedFeedback.add(feedbackId);
-  }
-  renderCategories();
-  renderPreview();
-}
-
-// ============================================================
-// TOGGLE CATEGORY COLLAPSE
-// ============================================================
-
-function toggleCategory(category) {
-  if (state.collapsedCategories.has(category)) {
-    state.collapsedCategories.delete(category);
-  } else {
-    state.collapsedCategories.add(category);
-  }
-  renderCategories();
-}
-
-// ============================================================
-// EMAIL PREVIEW — HTML
-// ============================================================
-
-function buildEmailHtml() {
-  if (!state.selectedStudent || state.selectedFeedback.size === 0) return null;
-
-  const student = state.selectedStudent;
-  const intro = state.selectedIntro;
-  const date = formatDate();
-
-  const grouped = {};
-  CATEGORY_ORDER.forEach(cat => { grouped[cat] = []; });
-  FEEDBACK_LIBRARY.forEach(item => {
-    if (state.selectedFeedback.has(item.FeedbackID)) {
-      grouped[item.Category].push(item);
+    // Tips
+    if (data.tips && data.tips.length > 0) {
+      html += '<div class="tips-box">';
+      html += '<div class="tips-box-title">\u2728 Tips for Improving</div>';
+      html += '<ul>';
+      data.tips.forEach(tip => {
+        html += '<li>' + escapeHtml(tip) + '</li>';
+      });
+      html += '</ul>';
+      html += '</div>';
     }
-  });
-  Object.keys(grouped).forEach(cat => {
-    grouped[cat].sort((a, b) => a.DisplayOrder - b.DisplayOrder);
-  });
 
-  let sections = "";
-  CATEGORY_ORDER.forEach(cat => {
-    if (grouped[cat].length === 0) return;
-    sections += '<h2 style="font-size:20px; line-height:1.3; color:#1a1a1a; margin:24px 0 12px 0; font-family:Arial, Helvetica, sans-serif;">' + escapeHtml(cat) + '</h2>';
-    sections += '<ul style="padding-left:20px; margin:0 0 16px 0; list-style-type:disc;">';
-    grouped[cat].forEach(item => {
-      sections += '<li style="font-size:16px; line-height:1.5; color:#1a1a1a; margin:0 0 12px 0; font-family:Arial, Helvetica, sans-serif;">' +
-        '<strong>' + escapeHtml(item.Title) + '</strong><br>' +
-        escapeHtml(item.FeedbackText) + '</li>';
-    });
-    sections += '</ul>';
+    html += '</div>'; // section-body
+    html += '</div>'; // fb-section
   });
 
-  let customNoteHtml = "";
-  if (state.customNote.trim()) {
-    customNoteHtml = '<h2 style="font-size:20px; line-height:1.3; color:#1a1a1a; margin:24px 0 12px 0; font-family:Arial, Helvetica, sans-serif;">A Note from Your Tutor</h2>' +
-      '<p style="font-size:16px; line-height:1.5; color:#1a1a1a; margin:0 0 24px 0; font-family:Arial, Helvetica, sans-serif;">' + escapeHtml(state.customNote) + '</p>';
-  }
-
-  return '<div role="article" aria-label="Personalised feedback for ' + escapeHtml(student.StudentName) + '" ' +
-    'style="max-width:600px; margin:0 auto; background-color:#ffffff; padding:32px; font-family:Arial, Helvetica, sans-serif;">' +
-    '<h1 style="font-size:24px; line-height:1.3; color:#1a1a1a; margin:0 0 8px 0; font-family:Arial, Helvetica, sans-serif;">Personalised Feedback</h1>' +
-    '<p style="font-size:16px; line-height:1.5; color:#333333; margin:0 0 24px 0; font-family:Arial, Helvetica, sans-serif;">' +
-      '<strong>Student:</strong> ' + escapeHtml(student.StudentName) + '<br>' +
-      '<strong>Module:</strong> ' + escapeHtml(student.Module) + '<br>' +
-      '<strong>Date:</strong> ' + escapeHtml(date) +
-    '</p>' +
-    '<hr style="border:none; border-top:1px solid #cccccc; margin:24px 0;" aria-hidden="true">' +
-    '<p style="font-size:16px; line-height:1.5; color:#1a1a1a; margin:0 0 24px 0; font-family:Arial, Helvetica, sans-serif;">' + escapeHtml(intro.IntroText) + '</p>' +
-    sections +
-    customNoteHtml +
-    '<hr style="border:none; border-top:1px solid #cccccc; margin:24px 0;" aria-hidden="true">' +
-    '<p style="font-size:14px; line-height:1.5; color:#555555; margin:0 0 12px 0; font-family:Arial, Helvetica, sans-serif;">' + escapeHtml(TEMPLATE.FooterText) + '</p>' +
-    '<p style="font-size:14px; line-height:1.5; color:#555555; margin:0 0 0 0; font-family:Arial, Helvetica, sans-serif;">' + escapeHtml(TEMPLATE.AccessibilityStatement) + '</p>' +
-  '</div>';
+  dom.feedbackContent.innerHTML = html;
 }
 
 // ============================================================
-// EMAIL PREVIEW — PLAIN TEXT
+// LOGIN / LOGOUT
 // ============================================================
 
-function buildPlainText() {
-  if (!state.selectedStudent || state.selectedFeedback.size === 0) return null;
+function login() {
+  const email = dom.loginEmail.value.trim().toLowerCase();
+  const student = STUDENTS[email];
 
-  const student = state.selectedStudent;
-  const intro = state.selectedIntro;
-  const date = formatDate();
-
-  const grouped = {};
-  CATEGORY_ORDER.forEach(cat => { grouped[cat] = []; });
-  FEEDBACK_LIBRARY.forEach(item => {
-    if (state.selectedFeedback.has(item.FeedbackID)) {
-      grouped[item.Category].push(item);
-    }
-  });
-  Object.keys(grouped).forEach(cat => {
-    grouped[cat].sort((a, b) => a.DisplayOrder - b.DisplayOrder);
-  });
-
-  let lines = [];
-  lines.push("PERSONALISED FEEDBACK");
-  lines.push("=====================");
-  lines.push("");
-  lines.push("Student: " + student.StudentName);
-  lines.push("Module:  " + student.Module);
-  lines.push("Date:    " + date);
-  lines.push("");
-  lines.push("-----");
-  lines.push("");
-  lines.push(intro.IntroText);
-  lines.push("");
-  lines.push("-----");
-  lines.push("");
-
-  CATEGORY_ORDER.forEach(cat => {
-    if (grouped[cat].length === 0) return;
-    lines.push(cat.toUpperCase());
-    lines.push("-------------");
-    grouped[cat].forEach(item => {
-      lines.push("- " + item.Title);
-      lines.push("  " + item.FeedbackText);
-      lines.push("");
-    });
-  });
-
-  if (state.customNote.trim()) {
-    lines.push("-----");
-    lines.push("");
-    lines.push("A NOTE FROM YOUR TUTOR");
-    lines.push("----------------------");
-    lines.push(state.customNote);
-    lines.push("");
-  }
-
-  lines.push("-----");
-  lines.push("");
-  lines.push(TEMPLATE.FooterText);
-  lines.push("");
-  lines.push(TEMPLATE.AccessibilityStatement);
-
-  return lines.join("\n");
-}
-
-// ============================================================
-// RENDER PREVIEW
-// ============================================================
-
-function renderPreview() {
-  const html = buildEmailHtml();
-  const plain = buildPlainText();
-
-  if (html) {
-    dom.previewHtml.innerHTML = html;
-    dom.previewPlain.textContent = plain;
-  } else {
-    dom.previewHtml.innerHTML = '<div class="preview-empty">Select a student and feedback items to see the email preview</div>';
-    dom.previewPlain.textContent = "";
-  }
-}
-
-// ============================================================
-// BUTTON STATE
-// ============================================================
-
-function updateButtons() {
-  const valid = state.selectedStudent && state.selectedFeedback.size > 0;
-  dom.btnSaveDraft.disabled = !valid;
-  dom.btnSubmitSend.disabled = !valid;
-}
-
-// ============================================================
-// EVENT HANDLERS
-// ============================================================
-
-function onStudentChange() {
-  const id = dom.ddStudent.value;
-  if (!id) {
-    state.selectedStudent = null;
-    dom.lblModule.textContent = "Select a student above";
-  } else {
-    state.selectedStudent = STUDENTS.find(s => s.StudentID === id);
-    dom.lblModule.textContent = state.selectedStudent.Module + "  \u00b7  " + state.selectedStudent.Tutor;
-  }
-  state.selectedFeedback.clear();
-  renderCategories();
-  renderPreview();
-}
-
-function onIntroChange() {
-  const id = dom.ddIntro.value;
-  state.selectedIntro = INTRO_PARAGRAPHS.find(ip => ip.IntroID === id) || INTRO_PARAGRAPHS[0];
-  renderPreview();
-}
-
-function onSearchInput() {
-  state.searchText = dom.txtSearch.value;
-  renderCategories();
-}
-
-function onCustomNoteInput() {
-  state.customNote = dom.txtCustomNote.value;
-  renderPreview();
-}
-
-function onCategorySectionsClick(e) {
-  // Handle category header collapse toggle
-  const header = e.target.closest(".cat-header");
-  if (header) {
-    toggleCategory(header.dataset.category);
+  if (!student) {
+    alert("Student not found. Try: mei.chen@university.ac.uk");
     return;
   }
 
-  // Handle feedback item click
-  const item = e.target.closest(".fb-item");
-  if (item) {
-    const id = item.dataset.id;
-    if (id) toggleFeedback(id);
-  }
+  dom.loginPage.style.display = "none";
+  dom.feedbackPage.style.display = "block";
+  dom.navUser.textContent = student.name;
+
+  renderFeedback(student);
+
+  window.scrollTo(0, 0);
 }
 
-function onSaveDraft() {
-  if (!state.selectedStudent || state.selectedFeedback.size === 0) return;
-  console.log("Draft saved:", {
-    SelectionID: "SEL-" + Date.now(),
-    StudentEmail: state.selectedStudent.Email,
-    Module: state.selectedStudent.Module,
-    SelectedFeedbackIDs: Array.from(state.selectedFeedback).map(id => ({ FeedbackID: id })),
-    CustomNote: state.customNote,
-    Status: "Draft"
-  });
-  showToast("Draft saved for " + state.selectedStudent.StudentName, "success");
-}
-
-function onSubmitSend() {
-  if (!state.selectedStudent || state.selectedFeedback.size === 0) return;
-
-  dom.btnSubmitSend.classList.add("loading");
-  dom.btnSubmitSend.disabled = true;
-
-  setTimeout(() => {
-    const email = state.selectedStudent.Email;
-    console.log("Submitted:", {
-      SelectionID: "SEL-" + Date.now(),
-      StudentEmail: email,
-      Module: state.selectedStudent.Module,
-      SelectedFeedbackIDs: Array.from(state.selectedFeedback).map(id => ({ FeedbackID: id })),
-      CustomNote: state.customNote,
-      Status: "Submitted"
-    });
-
-    dom.btnSubmitSend.classList.remove("loading");
-    showToast("Email sent to " + email + "!", "success");
-
-    state.selectedFeedback.clear();
-    state.customNote = "";
-    dom.txtCustomNote.value = "";
-    dom.ddStudent.value = "";
-    state.selectedStudent = null;
-    dom.lblModule.textContent = "Select a student above";
-    renderCategories();
-    renderPreview();
-  }, 1500);
-}
-
-function onTabClick(e) {
-  const tab = e.target.closest(".preview-tab");
-  if (!tab) return;
-
-  document.querySelectorAll(".preview-tab").forEach(t => t.classList.remove("active"));
-  tab.classList.add("active");
-
-  const which = tab.dataset.tab;
-  if (which === "html") {
-    dom.previewHtml.style.display = "";
-    dom.previewPlain.style.display = "none";
-  } else {
-    dom.previewHtml.style.display = "none";
-    dom.previewPlain.style.display = "";
-  }
+function logout() {
+  dom.feedbackPage.style.display = "none";
+  dom.loginPage.style.display = "flex";
+  dom.feedbackContent.innerHTML = "";
+  window.scrollTo(0, 0);
 }
 
 // ============================================================
-// INIT
+// EVENTS
 // ============================================================
 
-function init() {
-  populateStudents();
-  populateIntros();
+dom.btnLogin.addEventListener("click", login);
+dom.btnLogout.addEventListener("click", logout);
 
-  dom.ddStudent.addEventListener("change", onStudentChange);
-  dom.ddIntro.addEventListener("change", onIntroChange);
-  dom.txtSearch.addEventListener("input", onSearchInput);
-  dom.txtCustomNote.addEventListener("input", onCustomNoteInput);
-  dom.categorySections.addEventListener("click", onCategorySectionsClick);
-  dom.btnSaveDraft.addEventListener("click", onSaveDraft);
-  dom.btnSubmitSend.addEventListener("click", onSubmitSend);
+dom.loginEmail.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") login();
+});
 
-  document.querySelector(".preview-tabs").addEventListener("click", onTabClick);
-
-  renderCategories();
-  renderPreview();
-}
-
-init();
+document.getElementById("loginPassword").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") login();
+});
