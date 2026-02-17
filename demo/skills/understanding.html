@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Skill: Understanding & Summarising</title>
+  <link rel="stylesheet" href="skill.css">
+  <style>
+    .page-title { color: #2b6cb0; }
+    .definition-box { border-left-color: #2b6cb0; background: #ebf8ff; }
+    .definition-box h3 { color: #2b6cb0; }
+    .example-label { color: #2b6cb0; }
+    .practice-card { border-color: #2b6cb0; }
+    .practice-card .card-header { background: #2b6cb0; }
+    .btn-feedback { background: #2b6cb0; }
+    .popup-title { color: #2b6cb0; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="nav">
+    <div class="nav-title">Your Feedback — Study Skills</div>
+    <a href="../index.html">&larr; Back to Feedback</a>
+  </div>
+
+  <div class="content">
+    <div class="page-title">💡 Understanding & Summarising</div>
+    <div class="page-subtitle">How to select content effectively and summarise research studies in your own words.</div>
+
+    <!-- Definition -->
+    <div class="definition-box">
+      <h3>What does this skill involve?</h3>
+      <p>Understanding means engaging with theories and research at a level that goes beyond surface description. It involves grasping why a study was conducted, what it found, and what those findings mean in the context of the broader debate. Summarising is the skill of condensing a study into a concise, accurate account that captures the method, findings, and significance — without copying the original wording. Together, these skills show the reader that you have genuinely engaged with the material, not just listed facts.</p>
+    </div>
+
+    <!-- Example 1: Good summary -->
+    <div class="card">
+      <div class="card-header">📖 Example 1: Effective Research Summary</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">Student Writing</div>
+          <div class="example-text">
+            <span class="hl-good">Ainsworth et al. (1978) developed the Strange Situation to classify infant attachment styles.</span> <span class="hl-good">In this laboratory procedure, 12- to 18-month-old infants were observed during a series of separations and reunions with their caregiver and a stranger.</span> <span class="hl-good">The study identified three primary attachment styles: secure, insecure-avoidant, and insecure-resistant, with approximately 65% of infants classified as securely attached.</span> <span class="hl-good">These findings provided the first empirical framework for measuring individual differences in attachment, though the artificial laboratory setting may not fully reflect how infants behave in naturalistic contexts.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this works:</strong> This summary is concise but complete. It names the researchers and year, describes the method in one sentence, states the specific findings with data, and ends with a brief critical comment about the methodology. The reader knows exactly what the study did, found, and means — all in four sentences.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Weak + improved -->
+    <div class="card">
+      <div class="card-header">📖 Example 2: Vague Summary vs. Effective Summary</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">❌ Weak Version</div>
+          <div class="example-text">
+            <span class="hl-weak">Bowlby did a study on juvenile thieves and found that maternal deprivation was bad for children. This shows that attachment is important.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is weak:</strong> This summary is too vague. It doesn't explain what Bowlby actually did (the method), what he specifically found (the data), or why the findings matter (the implications). "Bad for children" and "attachment is important" are not academic language and don't demonstrate understanding of the research.
+          </div>
+        </div>
+
+        <div class="example-block" style="margin-top:20px;">
+          <div class="example-label">✅ Improved Version</div>
+          <div class="example-text">
+            <span class="hl-good">Bowlby (1944) conducted a case study of 44 juvenile thieves referred to a child guidance clinic.</span> <span class="hl-good">He found that 14 of the 44 displayed 'affectionless psychopathy' — a lack of empathy and inability to form meaningful relationships — and that 12 of these 14 had experienced prolonged separation from their mothers before the age of two.</span> <span class="hl-good">This led Bowlby to propose his maternal deprivation hypothesis: that continuous emotional care from a mother figure is essential during a critical period for healthy emotional development. However, the retrospective, correlational nature of the study means that other factors — such as the reasons for the separation — may have contributed to the outcomes observed.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is better:</strong> This version names the method (case study), gives specific data (14 out of 44), defines the key term (affectionless psychopathy), explains the theoretical conclusion (maternal deprivation hypothesis), and offers a critical evaluation. It demonstrates real understanding of the study.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="card practice-card">
+      <div class="card-header">✏️ Practice: Summarise a Research Study</div>
+      <div class="card-body">
+        <p style="margin-bottom:16px;">Use the bullet points below to write a clear, concise summary of this research study. Aim for 3-4 sentences covering: what was done, what was found, and what it means.</p>
+
+        <div class="bullet-notes">
+          <ul>
+            <li>Researchers: Rutter and the English and Romanian Adoptees (ERA) study team</li>
+            <li>Year: began 1998, followed up to age 15+</li>
+            <li>Method: longitudinal study of 165 Romanian orphans adopted into UK families after varying periods of institutional deprivation</li>
+            <li>Findings: children adopted before 6 months showed normal cognitive development by age 4; those adopted after 6 months showed initial delays but significant catch-up, though some effects persisted</li>
+            <li>Significance: challenged Bowlby's claim that deprivation effects are irreversible; showed importance of quality of care after adoption</li>
+          </ul>
+        </div>
+
+        <div class="practice-prompt">Write your summary paragraph below:</div>
+        <textarea class="practice-textarea" id="practiceText" placeholder="Rutter et al. conducted a longitudinal study..."></textarea>
+        <button class="btn-feedback" id="btnShowFeedback">Show Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <div class="popup-title">📝 Feedback on Your Practice</div>
+      <div class="popup-body" id="popupBody"></div>
+      <button class="popup-close" id="btnClosePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    var btnShow = document.getElementById("btnShowFeedback");
+    var btnClose = document.getElementById("btnClosePopup");
+    var overlay = document.getElementById("popupOverlay");
+    var popupBody = document.getElementById("popupBody");
+    var textArea = document.getElementById("practiceText");
+
+    btnShow.addEventListener("click", function() {
+      var text = textArea.value.trim();
+      var html = "";
+
+      if (text.length < 20) {
+        html += "<p><strong>You haven't written enough yet.</strong> Try writing 3-4 sentences that cover: what the researchers did, what they found, and what the findings mean for the deprivation debate.</p>";
+      } else {
+        html += "<p><strong>Nice work!</strong> Check your summary against these criteria:</p>";
+        html += "<ul>";
+        html += "<li><strong>Researchers & date:</strong> Did you name Rutter et al. with the year? This grounds the summary academically.</li>";
+        html += "<li><strong>Method in brief:</strong> Did you describe the study as longitudinal and mention the sample (Romanian orphans adopted into UK families)? One sentence is enough.</li>";
+        html += "<li><strong>Specific findings:</strong> Did you include the key contrast — children adopted before 6 months vs. those adopted later? Including specific data makes your summary convincing.</li>";
+        html += "<li><strong>Significance:</strong> Did you explain what this means for the broader debate — that it challenges Bowlby's claim about irreversibility? This is the most important part.</li>";
+        html += "</ul>";
+        html += "<p><strong>Model answer:</strong> 'Rutter et al. (1998) conducted a longitudinal study tracking 165 Romanian orphans who were adopted into British families after spending varying periods in severely deprived institutional care. Children adopted before the age of six months showed cognitive development comparable to UK-born controls by age four, whereas those adopted later showed initial delays but significant recovery over time, though some effects of deprivation persisted into adolescence. These findings challenged Bowlby's maternal deprivation hypothesis by demonstrating that early deprivation does not necessarily cause permanent damage, and that the quality of subsequent caregiving plays a critical role in developmental recovery.'</p>";
+      }
+
+      popupBody.innerHTML = html;
+      overlay.classList.add("active");
+    });
+
+    btnClose.addEventListener("click", function() { overlay.classList.remove("active"); });
+    overlay.addEventListener("click", function(e) { if (e.target === overlay) overlay.classList.remove("active"); });
+  </script>
+</body>
+</html>

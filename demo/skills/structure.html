@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Skill: Essay Structure</title>
+  <link rel="stylesheet" href="skill.css">
+  <style>
+    .page-title { color: #276749; }
+    .definition-box { border-left-color: #276749; background: #f0fff4; }
+    .definition-box h3 { color: #276749; }
+    .example-label { color: #276749; }
+    .practice-card { border-color: #276749; }
+    .practice-card .card-header { background: #276749; }
+    .btn-feedback { background: #276749; }
+    .popup-title { color: #276749; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="nav">
+    <div class="nav-title">Your Feedback — Study Skills</div>
+    <a href="../index.html">&larr; Back to Feedback</a>
+  </div>
+
+  <div class="content">
+    <div class="page-title">🏗️ Essay Structure</div>
+    <div class="page-subtitle">How to organise your essay so the reader can follow your argument clearly.</div>
+
+    <!-- Definition -->
+    <div class="definition-box">
+      <h3>What is essay structure?</h3>
+      <p>Essay structure is the way you organise your ideas into a coherent whole. A well-structured essay has a clear introduction that frames the question, body paragraphs that each make a distinct point, and a conclusion that synthesises the argument. Good structure acts as a roadmap — it tells the reader where you are going and why. Without it, even strong ideas can feel disconnected and hard to follow.</p>
+    </div>
+
+    <!-- Example 1: Good -->
+    <div class="card">
+      <div class="card-header">📖 Example 1: Well-Structured Introduction</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">Student Writing</div>
+          <div class="example-text">
+            <span class="hl-good">Attachment theory, first proposed by Bowlby (1969), argues that the bond formed between an infant and their primary caregiver has lasting effects on emotional development.</span> <span class="hl-good">This essay will evaluate the extent to which early attachment shapes adult relationships</span> by examining evidence from Ainsworth's Strange Situation paradigm, longitudinal studies of attachment stability, and cross-cultural research that challenges the universality of Bowlby's claims. <span class="hl-good">It will argue that while early attachment is influential, its effects are moderated by subsequent experiences and cultural context.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this works:</strong> The introduction does three things clearly: (1) it defines the key concept — attachment theory — with a citation, (2) it tells the reader exactly what the essay will cover, and (3) it states the argument the essay will make. The reader finishes this paragraph knowing what to expect from the rest of the essay.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Weak + improved -->
+    <div class="card">
+      <div class="card-header">📖 Example 2: Weak Conclusion vs. Improved Conclusion</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">❌ Weak Version</div>
+          <div class="example-text">
+            <span class="hl-weak">In conclusion, attachment theory is very important and has been studied by many psychologists. There are many different views on this topic.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is weak:</strong> This conclusion is vague and could apply to almost any psychology essay. It doesn't summarise the specific evidence discussed, doesn't answer the essay question, and doesn't reach a considered position.
+          </div>
+        </div>
+
+        <div class="example-block" style="margin-top:20px;">
+          <div class="example-label">✅ Improved Version</div>
+          <div class="example-text">
+            <span class="hl-good">The evidence examined in this essay suggests that early attachment has a significant but not deterministic influence on emotional development.</span> While Bowlby's theory and supporting research from Hazan and Shaver (1987) demonstrate that attachment styles formed in infancy can persist into adulthood, <span class="hl-good">Rutter's longitudinal work with Romanian orphans shows that recovery is possible when children are placed in supportive environments.</span> <span class="hl-good">Future research should examine the specific mechanisms through which later experiences modify early attachment patterns.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is better:</strong> This conclusion synthesises the key evidence, states a clear position that answers the question, acknowledges nuance, and suggests a direction for further research. It feels like the essay has reached a considered endpoint.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="card practice-card">
+      <div class="card-header">✏️ Practice: Write a Structured Introduction</div>
+      <div class="card-body">
+        <p style="margin-bottom:16px;">Use the bullet points below to write a structured introduction paragraph. Try to include: a definition, the scope of the essay, and a clear argument statement.</p>
+
+        <div class="bullet-notes">
+          <ul>
+            <li>Topic: the effect of sleep deprivation on cognitive performance</li>
+            <li>Key researcher: Walker (2017) — "Why We Sleep"</li>
+            <li>The essay covers: laboratory studies, real-world evidence (shift workers, students), methodological issues</li>
+            <li>Argument: sleep deprivation significantly impairs cognition, but effects depend on the type of task and individual differences</li>
+          </ul>
+        </div>
+
+        <div class="practice-prompt">Write your introduction paragraph below:</div>
+        <textarea class="practice-textarea" id="practiceText" placeholder="Sleep deprivation is..."></textarea>
+        <button class="btn-feedback" id="btnShowFeedback">Show Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <div class="popup-title">📝 Feedback on Your Practice</div>
+      <div class="popup-body" id="popupBody"></div>
+      <button class="popup-close" id="btnClosePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    var btnShow = document.getElementById("btnShowFeedback");
+    var btnClose = document.getElementById("btnClosePopup");
+    var overlay = document.getElementById("popupOverlay");
+    var popupBody = document.getElementById("popupBody");
+    var textArea = document.getElementById("practiceText");
+
+    btnShow.addEventListener("click", function() {
+      var text = textArea.value.trim();
+      var html = "";
+
+      if (text.length < 20) {
+        html += "<p><strong>You haven't written enough yet.</strong> Try writing at least 3-4 sentences that cover: a definition of sleep deprivation, what evidence you'll discuss, and what position your essay will take.</p>";
+      } else {
+        html += "<p><strong>Well done for having a go!</strong> Here are some things to check in your introduction:</p>";
+        html += "<ul>";
+        html += "<li><strong>Definition:</strong> Did you define sleep deprivation clearly at the start? A good introduction names the concept and briefly explains it.</li>";
+        html += "<li><strong>Scope:</strong> Did you tell the reader what evidence or studies the essay will cover? Mentioning Walker (2017), lab studies, and real-world evidence gives the reader a roadmap.</li>";
+        html += "<li><strong>Argument statement:</strong> Did you state your position? For example: 'This essay will argue that sleep deprivation significantly impairs cognitive performance, though the extent depends on task type and individual factors.'</li>";
+        html += "<li><strong>Order:</strong> The strongest introductions follow the pattern: define → scope → argue. Check that yours flows in this order.</li>";
+        html += "</ul>";
+        html += "<p><strong>Model answer:</strong> 'Sleep deprivation — defined as obtaining fewer than the recommended seven to nine hours of sleep (Walker, 2017) — has been linked to significant impairments in cognitive performance. This essay examines evidence from laboratory studies of selective sleep restriction, real-world research on shift workers and university students, and considers methodological challenges in measuring the effects of sleep loss. It will argue that sleep deprivation consistently impairs cognitive functioning, though the magnitude of these effects varies depending on the cognitive domain tested and individual differences in sleep need.'</p>";
+      }
+
+      popupBody.innerHTML = html;
+      overlay.classList.add("active");
+    });
+
+    btnClose.addEventListener("click", function() {
+      overlay.classList.remove("active");
+    });
+
+    overlay.addEventListener("click", function(e) {
+      if (e.target === overlay) overlay.classList.remove("active");
+    });
+  </script>
+</body>
+</html>

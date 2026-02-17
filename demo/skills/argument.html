@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Skill: Building an Argument</title>
+  <link rel="stylesheet" href="skill.css">
+  <style>
+    .page-title { color: #553c9a; }
+    .definition-box { border-left-color: #553c9a; background: #faf5ff; }
+    .definition-box h3 { color: #553c9a; }
+    .example-label { color: #553c9a; }
+    .practice-card { border-color: #553c9a; }
+    .practice-card .card-header { background: #553c9a; }
+    .btn-feedback { background: #553c9a; }
+    .popup-title { color: #553c9a; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="nav">
+    <div class="nav-title">Your Feedback — Study Skills</div>
+    <a href="../index.html">&larr; Back to Feedback</a>
+  </div>
+
+  <div class="content">
+    <div class="page-title">🎯 Building an Argument</div>
+    <div class="page-subtitle">How to take a position, support it with evidence, and make a persuasive case in academic writing.</div>
+
+    <!-- Definition -->
+    <div class="definition-box">
+      <h3>What is an academic argument?</h3>
+      <p>An academic argument is not a disagreement — it is a reasoned position supported by evidence. In a psychology essay, arguing means taking a clear stance on a question (e.g., "early attachment significantly influences adult relationships, but its effects are not deterministic") and then using theory and research to support, challenge, and refine that position throughout the essay. Strong arguments evaluate evidence critically, consider counter-arguments, and reach a nuanced conclusion. Description alone — simply reporting what theorists have said — is not argument.</p>
+    </div>
+
+    <!-- Example 1: Good argument paragraph -->
+    <div class="card">
+      <div class="card-header">📖 Example 1: Paragraph That Advances an Argument</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">Student Writing</div>
+          <div class="example-text">
+            <span class="hl-good">Bowlby's claim that attachment disruption causes irreversible damage is challenged by evidence from adoption studies.</span> Rutter et al. (1998) followed Romanian orphans adopted into British families and found that those placed before six months showed normal development by age four. <span class="hl-good">This suggests that the effects of early deprivation can be reversed, provided the child receives sensitive and consistent caregiving.</span> <span class="hl-good">However, children adopted after six months continued to show some difficulties, which partially supports Bowlby's emphasis on a critical period — though it reframes the concept as a sensitive period rather than an absolute one.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this works:</strong> The paragraph opens by stating what it will argue (that Bowlby's claim is challenged), presents specific evidence, explains what the evidence means for the argument, and then adds nuance by acknowledging the counter-point. Every sentence advances the argument rather than just describing research.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Descriptive vs. argumentative -->
+    <div class="card">
+      <div class="card-header">📖 Example 2: Descriptive Writing vs. Argumentative Writing</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">❌ Descriptive (No Argument)</div>
+          <div class="example-text">
+            <span class="hl-weak">Ainsworth developed the Strange Situation in 1978. In this study, infants were observed being separated from and reunited with their mothers. She found three types of attachment: secure, avoidant, and resistant. Many infants were classified as secure.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this lacks argument:</strong> This paragraph describes what Ainsworth did and found, but never explains why it matters for the essay question. There is no evaluative statement, no link to the broader argument, and no analysis of what the findings mean. It reads like a textbook entry, not an essay paragraph.
+          </div>
+        </div>
+
+        <div class="example-block" style="margin-top:20px;">
+          <div class="example-label">✅ Argumentative Version</div>
+          <div class="example-text">
+            <span class="hl-good">Ainsworth's Strange Situation (1978) provides the strongest empirical support for individual differences in attachment quality.</span> By systematically observing infant responses to separation and reunion, she identified three distinct styles — secure, avoidant, and resistant — with 65% of infants classified as securely attached. <span class="hl-good">The reliability of these classifications across multiple samples strengthens the claim that attachment styles are a meaningful psychological construct.</span> <span class="hl-good">Nevertheless, the procedure has been criticised for reflecting Western, middle-class parenting norms, raising questions about whether these categories are universally applicable (Takahashi, 1990).</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is stronger:</strong> The opening sentence makes a claim ("provides the strongest empirical support"). The evidence is used to support that claim. The final sentence introduces a counter-argument, showing critical engagement. The paragraph takes a position and evaluates it.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="card practice-card">
+      <div class="card-header">✏️ Practice: Turn Description Into Argument</div>
+      <div class="card-body">
+        <p style="margin-bottom:16px;">The bullet points below describe a study. Your task is to write an <strong>argumentative paragraph</strong> — not just describe the study, but use it to support or challenge a claim about whether behaviour is influenced more by nature or nurture.</p>
+
+        <div class="bullet-notes">
+          <ul>
+            <li>Study: Bouchard et al. (1990) — Minnesota Twin Study</li>
+            <li>Method: studied identical twins reared apart; compared their IQ scores, personality traits, and attitudes</li>
+            <li>Findings: identical twins reared apart showed IQ correlations of about 0.70, very similar to twins reared together (0.76)</li>
+            <li>Implication: suggests a strong genetic component to intelligence</li>
+            <li>Criticism: small sample sizes, twins may have been placed in similar socioeconomic environments, self-selection bias in recruitment</li>
+          </ul>
+        </div>
+
+        <div class="practice-prompt">Write your argumentative paragraph below:</div>
+        <textarea class="practice-textarea" id="practiceText" placeholder="The nature-nurture debate is central to..."></textarea>
+        <button class="btn-feedback" id="btnShowFeedback">Show Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <div class="popup-title">📝 Feedback on Your Practice</div>
+      <div class="popup-body" id="popupBody"></div>
+      <button class="popup-close" id="btnClosePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    var btnShow = document.getElementById("btnShowFeedback");
+    var btnClose = document.getElementById("btnClosePopup");
+    var overlay = document.getElementById("popupOverlay");
+    var popupBody = document.getElementById("popupBody");
+    var textArea = document.getElementById("practiceText");
+
+    btnShow.addEventListener("click", function() {
+      var text = textArea.value.trim();
+      var html = "";
+
+      if (text.length < 20) {
+        html += "<p><strong>You haven't written enough yet.</strong> Try writing 4-5 sentences: start with a claim about the nature-nurture debate, present the twin study evidence, explain what it means, and evaluate a limitation.</p>";
+      } else {
+        html += "<p><strong>Good effort!</strong> Check your paragraph against these criteria:</p>";
+        html += "<ul>";
+        html += "<li><strong>Opening claim:</strong> Did your first sentence make a claim (not just describe the study)? For example: 'Twin studies provide some of the most compelling evidence for a genetic contribution to intelligence.'</li>";
+        html += "<li><strong>Evidence with data:</strong> Did you include the specific correlation figures (0.70 and 0.76)? Concrete data makes your argument more convincing than vague claims.</li>";
+        html += "<li><strong>Explanation:</strong> Did you explain what the findings mean for the nature-nurture debate? Don't leave the reader to draw their own conclusions.</li>";
+        html += "<li><strong>Counter-argument:</strong> Did you evaluate a limitation? This shows critical thinking. Acknowledging that twins may have been placed in similar environments is a strong counter-point.</li>";
+        html += "</ul>";
+        html += "<p><strong>Model answer:</strong> 'Twin studies provide some of the most compelling evidence for a genetic contribution to intelligence. Bouchard et al. (1990) studied identical twins who had been reared apart and found IQ correlations of approximately 0.70, a figure remarkably close to the 0.76 correlation observed in twins raised together. This suggests that genetic factors account for a substantial proportion of individual differences in intelligence, given that the reared-apart twins shared genes but not environments. However, this conclusion must be tempered by methodological concerns: the sample was self-selected, relatively small, and many of the \"separated\" twins had in fact been placed in socioeconomically similar households, meaning that the environmental contrast may have been less pronounced than assumed.'</p>";
+      }
+
+      popupBody.innerHTML = html;
+      overlay.classList.add("active");
+    });
+
+    btnClose.addEventListener("click", function() { overlay.classList.remove("active"); });
+    overlay.addEventListener("click", function(e) { if (e.target === overlay) overlay.classList.remove("active"); });
+  </script>
+</body>
+</html>

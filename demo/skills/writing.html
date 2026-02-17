@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Skill: Academic Writing</title>
+  <link rel="stylesheet" href="skill.css">
+  <style>
+    .page-title { color: #c05621; }
+    .definition-box { border-left-color: #c05621; background: #fffaf0; }
+    .definition-box h3 { color: #c05621; }
+    .example-label { color: #c05621; }
+    .practice-card { border-color: #c05621; }
+    .practice-card .card-header { background: #c05621; }
+    .btn-feedback { background: #c05621; }
+    .popup-title { color: #c05621; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="nav">
+    <div class="nav-title">Your Feedback — Study Skills</div>
+    <a href="../index.html">&larr; Back to Feedback</a>
+  </div>
+
+  <div class="content">
+    <div class="page-title">✍️ Academic Writing Skills</div>
+    <div class="page-subtitle">How to write concisely, clearly, and in an appropriate academic tone.</div>
+
+    <!-- Definition -->
+    <div class="definition-box">
+      <h3>What makes writing "academic"?</h3>
+      <p>Academic writing is characterised by precision, clarity, and objectivity. It uses formal language, avoids colloquialisms, and supports claims with evidence. Good academic writing is also concise — every word earns its place. At university level, you are expected to write in a way that communicates complex ideas clearly, uses technical terminology accurately, and maintains a consistent formal tone throughout. The goal is not to sound clever, but to be understood.</p>
+    </div>
+
+    <!-- Example 1: Conciseness -->
+    <div class="card">
+      <div class="card-header">📖 Example 1: Wordy vs. Concise Writing</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">❌ Wordy Version</div>
+          <div class="example-text">
+            <span class="hl-weak">It is widely acknowledged by many researchers in the field of developmental psychology that the concept of attachment plays a very important and significant role in the overall emotional development of children throughout their early years of life and beyond into adulthood.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Problem:</strong> This sentence is 43 words long but says very little. "Widely acknowledged by many researchers" is redundant, "very important and significant" is repetitive, and "throughout their early years of life and beyond into adulthood" could be much shorter. The reader has to work hard to extract the meaning.
+          </div>
+        </div>
+
+        <div class="example-block" style="margin-top:20px;">
+          <div class="example-label">✅ Concise Version</div>
+          <div class="example-text">
+            <span class="hl-good">Developmental psychologists widely recognise that attachment plays a critical role in emotional development from infancy through adulthood (Bowlby, 1969).</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is better:</strong> This says the same thing in 19 words. It replaces vague phrases with precise ones, removes redundancy, and adds a citation. Concise writing is not about saying less — it is about saying the same thing more efficiently.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Informal vs. Formal -->
+    <div class="card">
+      <div class="card-header">📖 Example 2: Informal vs. Academic Tone</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">❌ Informal</div>
+          <div class="example-text">
+            <span class="hl-weak">Basically, kids who don't get enough love from their parents end up having a lot of problems later on. This is really important because it shows that attachment stuff matters a lot.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Problems:</strong> "Basically" is a filler word. "Kids" should be "children." "A lot of problems" is vague. "Attachment stuff" is imprecise. "Really important" and "matters a lot" are informal and repetitive. Academic writing requires formal, specific language.
+          </div>
+        </div>
+
+        <div class="example-block" style="margin-top:20px;">
+          <div class="example-label">✅ Academic Version</div>
+          <div class="example-text">
+            <span class="hl-good">Children who experience insecure attachment in early life are at increased risk of emotional and behavioural difficulties in later development (Sroufe, 2005). This finding underscores the significance of early caregiving quality for long-term psychological outcomes.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is better:</strong> The language is formal and precise. Vague terms are replaced with specific ones ("emotional and behavioural difficulties" instead of "problems"). The claim is supported with a citation. The second sentence is analytical rather than just asserting importance.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="card practice-card">
+      <div class="card-header">✏️ Practice: Rewrite in Academic Style</div>
+      <div class="card-body">
+        <p style="margin-bottom:16px;">The bullet points below represent informal notes about a topic. Your task is to rewrite them as a <strong>single, well-written academic paragraph</strong> that is concise, formal, and clear.</p>
+
+        <div class="bullet-notes">
+          <ul>
+            <li>Topic: the effect of social media on self-esteem in teenagers</li>
+            <li>Social media use has gone up massively in the last ten years</li>
+            <li>Lots of studies have found that spending too much time on Instagram etc. can make teens feel bad about themselves</li>
+            <li>One key study: Vogel et al. (2014) — found that people who looked at attractive profiles on Facebook felt worse about their own appearance</li>
+            <li>But: correlation doesn't mean causation — maybe people with low self-esteem use social media more</li>
+            <li>Not all effects are negative — some research shows social media can help shy people build connections</li>
+          </ul>
+        </div>
+
+        <div class="practice-prompt">Rewrite as a formal academic paragraph:</div>
+        <textarea class="practice-textarea" id="practiceText" placeholder="Social media use among adolescents has..."></textarea>
+        <button class="btn-feedback" id="btnShowFeedback">Show Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <div class="popup-title">📝 Feedback on Your Practice</div>
+      <div class="popup-body" id="popupBody"></div>
+      <button class="popup-close" id="btnClosePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    var btnShow = document.getElementById("btnShowFeedback");
+    var btnClose = document.getElementById("btnClosePopup");
+    var overlay = document.getElementById("popupOverlay");
+    var popupBody = document.getElementById("popupBody");
+    var textArea = document.getElementById("practiceText");
+
+    btnShow.addEventListener("click", function() {
+      var text = textArea.value.trim();
+      var html = "";
+
+      if (text.length < 20) {
+        html += "<p><strong>You haven't written enough yet.</strong> Try converting all six bullet points into a single coherent paragraph using formal academic language.</p>";
+      } else {
+        html += "<p><strong>Good work!</strong> Here's how to evaluate your rewrite:</p>";
+        html += "<ul>";
+        html += "<li><strong>Formality:</strong> Did you replace informal phrases? 'Gone up massively' → 'increased substantially.' 'Feel bad about themselves' → 'experience lower self-esteem.' 'Instagram etc.' → 'social media platforms such as Instagram.'</li>";
+        html += "<li><strong>Precision:</strong> Did you include the specific study (Vogel et al., 2014) with a description of what they found? Specific evidence is always stronger than 'lots of studies.'</li>";
+        html += "<li><strong>Critical balance:</strong> Did you include the counter-point about correlation vs. causation? Did you mention the positive findings? Good academic writing presents a balanced view.</li>";
+        html += "<li><strong>Conciseness:</strong> Is every sentence adding new information? Can any phrases be shortened without losing meaning?</li>";
+        html += "</ul>";
+        html += "<p><strong>Model answer:</strong> 'Social media use among adolescents has increased substantially over the past decade, prompting research into its effects on self-esteem. Vogel et al. (2014) found that participants who viewed attractive Facebook profiles subsequently reported lower self-evaluations of their own appearance, suggesting that upward social comparison on these platforms may undermine self-esteem. However, the correlational nature of much of this research makes it difficult to establish causality; it remains possible that individuals with pre-existing low self-esteem are more drawn to social media use. Furthermore, not all effects are negative: some evidence suggests that social media can provide opportunities for social connection among individuals who find face-to-face interaction challenging.'</p>";
+      }
+
+      popupBody.innerHTML = html;
+      overlay.classList.add("active");
+    });
+
+    btnClose.addEventListener("click", function() { overlay.classList.remove("active"); });
+    overlay.addEventListener("click", function(e) { if (e.target === overlay) overlay.classList.remove("active"); });
+  </script>
+</body>
+</html>

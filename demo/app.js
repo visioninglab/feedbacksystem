@@ -182,6 +182,7 @@ const SECTIONS = [
     title: "Structure",
     icon: "\ud83c\udfd7\ufe0f",
     cssClass: "section-structure",
+    skillPage: "skills/structure.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "introduction", title: "Introduction" },
@@ -193,6 +194,7 @@ const SECTIONS = [
     title: "Understanding",
     icon: "\ud83d\udca1",
     cssClass: "section-understanding",
+    skillPage: "skills/understanding.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "content", title: "Content Selection" },
@@ -204,6 +206,7 @@ const SECTIONS = [
     title: "Argument",
     icon: "\ud83c\udfaf",
     cssClass: "section-argument",
+    skillPage: "skills/argument.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "framing", title: "Framing Your Argument" }
@@ -214,6 +217,7 @@ const SECTIONS = [
     title: "Academic Writing Skills",
     icon: "\u270d\ufe0f",
     cssClass: "section-writing",
+    skillPage: "skills/writing.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "conciseness", title: "Conciseness" },
@@ -226,6 +230,7 @@ const SECTIONS = [
     title: "Referencing",
     icon: "\ud83d\udcda",
     cssClass: "section-referencing",
+    skillPage: "skills/referencing.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "citing", title: "In-Text Citations" },
@@ -316,6 +321,9 @@ function renderFeedback(student) {
         html += '<li>' + escapeHtml(tip) + '</li>';
       });
       html += '</ul>';
+      if (section.skillPage) {
+        html += '<a href="' + section.skillPage + '" class="skill-link" target="_blank">Learn this skill: examples, explanations & practice \u2192</a>';
+      }
       html += '</div>';
     }
 

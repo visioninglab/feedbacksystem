@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Skill: Referencing</title>
+  <link rel="stylesheet" href="skill.css">
+  <style>
+    .page-title { color: #285e61; }
+    .definition-box { border-left-color: #285e61; background: #e6fffa; }
+    .definition-box h3 { color: #285e61; }
+    .example-label { color: #285e61; }
+    .practice-card { border-color: #285e61; }
+    .practice-card .card-header { background: #285e61; }
+    .btn-feedback { background: #285e61; }
+    .popup-title { color: #285e61; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="nav">
+    <div class="nav-title">Your Feedback — Study Skills</div>
+    <a href="../index.html">&larr; Back to Feedback</a>
+  </div>
+
+  <div class="content">
+    <div class="page-title">📚 Referencing</div>
+    <div class="page-subtitle">How to cite sources accurately and build a reliable reference list using APA 7th edition.</div>
+
+    <!-- Definition -->
+    <div class="definition-box">
+      <h3>Why does referencing matter?</h3>
+      <p>Referencing is how you show where your ideas and evidence come from. It serves three purposes: it gives credit to the original researchers, it allows the reader to check your sources, and it protects you from plagiarism. In psychology, the standard format is APA 7th edition. Accurate referencing is not just a formatting exercise — it is a core academic skill that demonstrates intellectual honesty and attention to detail. Every factual claim that is not common knowledge needs a citation.</p>
+    </div>
+
+    <!-- Example 1: Good in-text citations -->
+    <div class="card">
+      <div class="card-header">📖 Example 1: Effective In-Text Citation</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">Student Writing</div>
+          <div class="example-text">
+            <span class="hl-good">Bowlby (1969) proposed that infants form a primary attachment to one caregiver, a concept he termed 'monotropy.'</span> <span class="hl-good">This was later supported by Ainsworth et al. (1978), whose Strange Situation paradigm identified distinct patterns of attachment behaviour.</span> However, <span class="hl-good">cross-cultural research has challenged the universality of these categories (Takahashi, 1990; Van IJzendoorn & Kroonenberg, 1988).</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this works:</strong> Each claim is supported by a correctly formatted citation. When the author is part of the sentence, the year follows in brackets: "Bowlby (1969) proposed..." When the citation is parenthetical, both author and year go in brackets: "(Takahashi, 1990)." Multiple sources are separated by semicolons. For three or more authors, "et al." is used from the first citation (APA 7th edition rule).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Common mistakes -->
+    <div class="card">
+      <div class="card-header">📖 Example 2: Common Referencing Mistakes</div>
+      <div class="card-body">
+        <div class="example-block">
+          <div class="example-label">❌ Incorrect</div>
+          <div class="example-text">
+            <span class="hl-weak">Research has shown that attachment is important for development.</span> <span class="hl-weak">Bowlby's theory says that children need a primary caregiver (Bowlby, John, 1969).</span> <span class="hl-weak">According to a study, insecure children have more problems later (Hazan & Shaver).</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Three mistakes here:</strong><br>
+            1. The first sentence makes a claim with no citation at all — which research? Who found this?<br>
+            2. The second citation includes the first name — APA uses surname and year only: (Bowlby, 1969).<br>
+            3. The third citation is missing the year — it should be (Hazan & Shaver, 1987). Without the year, the reader cannot locate the source.
+          </div>
+        </div>
+
+        <div class="example-block" style="margin-top:20px;">
+          <div class="example-label">✅ Corrected</div>
+          <div class="example-text">
+            <span class="hl-good">Research consistently demonstrates that early attachment quality influences later emotional development (Bowlby, 1969; Sroufe, 2005).</span> <span class="hl-good">Bowlby's (1969) attachment theory proposes that children are biologically predisposed to form a primary bond with one caregiver.</span> <span class="hl-good">Hazan and Shaver (1987) extended this framework to adult romantic relationships, finding that attachment styles formed in infancy predicted patterns of adult intimacy.</span>
+          </div>
+          <div class="example-explanation">
+            <strong>Why this is correct:</strong> Every claim has a citation. Author surnames are used without first names. Years are always included. When citing two authors in the text, use "and": "Hazan and Shaver (1987)." When citing in brackets, use "&": "(Hazan & Shaver, 1987).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="card practice-card">
+      <div class="card-header">✏️ Practice: Write With Correct Citations</div>
+      <div class="card-body">
+        <p style="margin-bottom:16px;">Use the information below to write a short paragraph (3-4 sentences) with <strong>correctly formatted APA 7th edition in-text citations</strong>. Make sure every factual claim has a reference.</p>
+
+        <div class="bullet-notes">
+          <ul>
+            <li>Claim: working memory has limited capacity</li>
+            <li>Source: Miller (1956) — proposed the "magic number seven, plus or minus two" — people can hold about 7 items in short-term memory</li>
+            <li>More recent finding: Cowan (2001) argued the true limit is about 4 chunks, not 7</li>
+            <li>Application: Baddeley and Hitch (1974) developed the working memory model, which separates storage from processing</li>
+            <li>Significance: understanding working memory capacity has practical implications for education and cognitive load theory</li>
+          </ul>
+        </div>
+
+        <div class="practice-prompt">Write your paragraph with correct APA citations:</div>
+        <textarea class="practice-textarea" id="practiceText" placeholder="Working memory, the system responsible for..."></textarea>
+        <button class="btn-feedback" id="btnShowFeedback">Show Feedback</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <div class="popup-title">📝 Feedback on Your Practice</div>
+      <div class="popup-body" id="popupBody"></div>
+      <button class="popup-close" id="btnClosePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    var btnShow = document.getElementById("btnShowFeedback");
+    var btnClose = document.getElementById("btnClosePopup");
+    var overlay = document.getElementById("popupOverlay");
+    var popupBody = document.getElementById("popupBody");
+    var textArea = document.getElementById("practiceText");
+
+    btnShow.addEventListener("click", function() {
+      var text = textArea.value.trim();
+      var html = "";
+
+      if (text.length < 20) {
+        html += "<p><strong>You haven't written enough yet.</strong> Try writing 3-4 sentences that incorporate all three sources with correctly formatted APA citations.</p>";
+      } else {
+        html += "<p><strong>Good attempt!</strong> Check your referencing against these rules:</p>";
+        html += "<ul>";
+        html += "<li><strong>Format check:</strong> Is every citation in the form (Author, Year) or Author (Year)? No first names, no missing years.</li>";
+        html += "<li><strong>Miller:</strong> Should appear as Miller (1956) or (Miller, 1956).</li>";
+        html += "<li><strong>Cowan:</strong> Should appear as Cowan (2001) or (Cowan, 2001).</li>";
+        html += "<li><strong>Baddeley and Hitch:</strong> In text: 'Baddeley and Hitch (1974).' In brackets: '(Baddeley & Hitch, 1974).' Note: 'and' in text, '&' in brackets.</li>";
+        html += "<li><strong>Every claim cited?</strong> Check that no factual statement is left without a supporting reference. The claim about educational implications could cite (Sweller, 1988) or be linked back to one of your existing sources.</li>";
+        html += "</ul>";
+        html += "<p><strong>Model answer:</strong> 'The capacity of working memory has been debated since Miller (1956) proposed that short-term memory can hold approximately seven items, plus or minus two. However, Cowan (2001) challenged this estimate, arguing that the true capacity limit is closer to four chunks of information when rehearsal strategies are controlled for. Baddeley and Hitch (1974) advanced the field further by proposing a multi-component working memory model that distinguishes between storage and processing functions. Understanding these capacity limitations has significant practical implications, particularly for educational design and cognitive load management in learning environments (Sweller, 1988).'</p>";
+      }
+
+      popupBody.innerHTML = html;
+      overlay.classList.add("active");
+    });
+
+    btnClose.addEventListener("click", function() { overlay.classList.remove("active"); });
+    overlay.addEventListener("click", function(e) { if (e.target === overlay) overlay.classList.remove("active"); });
+  </script>
+</body>
+</html>
