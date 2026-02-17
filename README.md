@@ -43,7 +43,7 @@ Create SharePoint List: **FeedbackLibrary**
 |---|---|---|---|
 | FeedbackID | Single line of text | Yes | Enforce unique values = Yes (maps to F01 etc) |
 | Title | Single line of text | Yes | |
-| Category | Choice | Yes | Choices: Engagement, Academic Skills, Critical Thinking, Structure, Writing, Referencing, Next Steps, Overall |
+| Category | Choice | Yes | Choices: Engagement, Academic Skills, Critical Thinking, PEEL Structure, Structure, Writing, Referencing, Next Steps, Overall |
 | FeedbackText | Multiple lines of text | Yes | Plain text; keep it simple |
 | PlainText | Multiple lines of text | Yes | |
 | Tags | Single line of text | No | Comma-separated |
@@ -283,7 +283,7 @@ When an item is created or modified (Selections)
 
    Order categories using your CategoryOrder table OR hard-coded array:
 
-   `Engagement, Academic Skills, Critical Thinking, Structure, Writing, Referencing, Next Steps, Overall`
+   `Engagement, Academic Skills, Critical Thinking, PEEL Structure, Structure, Writing, Referencing, Next Steps, Overall`
 
    Sort within category by DisplayOrder then Title.
 

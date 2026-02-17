@@ -119,7 +119,7 @@ ddIntro.Selected.IntroText
 **Items:**
 
 ```
-["All", "Engagement", "Academic Skills", "Critical Thinking", "Structure", "Writing", "Referencing", "Next Steps", "Overall"]
+["All", "Engagement", "Academic Skills", "Critical Thinking", "PEEL Structure", "Structure", "Writing", "Referencing", "Next Steps", "Overall"]
 ```
 
 **Default:** `"All"`

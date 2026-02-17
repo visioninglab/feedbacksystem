@@ -172,7 +172,7 @@ FeedbackID eq '@{items('For_Each_Selected_ID')?['FeedbackID']}'
 - **Inputs:**
 
 ```json
-["Engagement", "Academic Skills", "Critical Thinking", "Structure", "Writing", "Referencing", "Next Steps", "Overall"]
+["Engagement", "Academic Skills", "Critical Thinking", "PEEL Structure", "Structure", "Writing", "Referencing", "Next Steps", "Overall"]
 ```
 
 ---
