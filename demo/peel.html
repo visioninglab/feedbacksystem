@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEEL Paragraph Feedback — Interactive Demo</title>
+  <style>
+    :root {
+      --point: #6a3d9a;
+      --evidence: #1f78b4;
+      --explain: #33a02c;
+      --link: #e66100;
+      --primary: #2c3e6b;
+      --bg: #f0f2f5;
+      --surface: #ffffff;
+      --border: #d0d7de;
+      --text: #1a1a1a;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Banner */
+    .banner {
+      background: #cf222e;
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--primary);
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header h1 { margin: 0; font-size: 20px; font-weight: 600; }
+    .header .badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .header a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: auto;
+    }
+    .header a:hover { color: #fff; }
+
+    /* Layout */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* PEEL legend */
+    .peel-legend {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .peel-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .peel-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .peel-dot.point { background: var(--point); }
+    .peel-dot.evidence { background: var(--evidence); }
+    .peel-dot.explain { background: var(--explain); }
+    .peel-dot.link { background: var(--link); }
+
+    /* Paragraph selector */
+    .paragraph-selector {
+      margin-bottom: 24px;
+    }
+    .paragraph-selector label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .paragraph-selector select {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      width: 100%;
+      max-width: 500px;
+    }
+    .paragraph-selector select:focus {
+      outline: 2px solid #0055a5;
+      outline-offset: 1px;
+    }
+
+    /* Student paragraph panel */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    .panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-body { padding: 20px; }
+
+    .student-paragraph {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .student-paragraph .peel-sentence {
+      border-radius: 3px;
+      padding: 1px 0;
+      transition: background 0.2s;
+    }
+    .student-paragraph .peel-sentence.point {
+      border-bottom: 3px solid var(--point);
+    }
+    .student-paragraph .peel-sentence.evidence {
+      border-bottom: 3px solid var(--evidence);
+    }
+    .student-paragraph .peel-sentence.explain {
+      border-bottom: 3px solid var(--explain);
+    }
+    .student-paragraph .peel-sentence.link {
+      border-bottom: 3px solid var(--link);
+    }
+    .student-paragraph .peel-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: #fff;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .peel-label.point { background: var(--point); }
+    .peel-label.evidence { background: var(--evidence); }
+    .peel-label.explain { background: var(--explain); }
+    .peel-label.link { background: var(--link); }
+
+    .paragraph-meta {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* PEEL feedback selectors */
+    .peel-section {
+      margin-bottom: 16px;
+    }
+    .peel-section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .peel-section-header h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .peel-section-header h3.point { color: var(--point); }
+    .peel-section-header h3.evidence { color: var(--evidence); }
+    .peel-section-header h3.explain { color: var(--explain); }
+    .peel-section-header h3.link { color: var(--link); }
+
+    .feedback-option {
+      display: flex;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .feedback-option:hover {
+      background: #f6f8fa;
+    }
+    .feedback-option.selected.point { border-color: var(--point); background: #f3eef8; }
+    .feedback-option.selected.evidence { border-color: var(--evidence); background: #eaf3fb; }
+    .feedback-option.selected.explain { border-color: var(--explain); background: #edf7ee; }
+    .feedback-option.selected.link { border-color: var(--link); background: #fef0e5; }
+
+    .feedback-option input[type="radio"] {
+      margin-top: 2px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+    .feedback-option-content { flex: 1; }
+    .feedback-option-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .feedback-option-tone {
+      display: inline-block;
+      font-size: 11px;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .tone-positive { background: #dafbe1; color: #1a7f37; }
+    .tone-developmental { background: #fff8c5; color: #9a6700; }
+    .feedback-option-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Output panel */
+    .output-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-clear {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--text-secondary);
+    }
+    .btn-clear:hover { background: #f6f8fa; }
+
+    .output-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .output-block {
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border-left: 4px solid;
+    }
+    .output-block.point { border-left-color: var(--point); background: #f9f5fd; }
+    .output-block.evidence { border-left-color: var(--evidence); background: #f0f7fc; }
+    .output-block.explain { border-left-color: var(--explain); background: #f2f9f2; }
+    .output-block.link { border-left-color: var(--link); background: #fdf3ec; }
+    .output-block h4 {
+      margin: 0 0 6px 0;
+      font-size: 14px;
+    }
+    .output-block h4.point { color: var(--point); }
+    .output-block h4.evidence { color: var(--evidence); }
+    .output-block h4.explain { color: var(--explain); }
+    .output-block h4.link { color: var(--link); }
+    .output-block p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+
+  <div class="header">
+    <h1>PEEL Paragraph Feedback</h1>
+    <span class="badge">Interactive Demo</span>
+    <a href="index.html">&larr; Back to Feedback Builder</a>
+  </div>
+
+  <div class="container">
+
+    <!-- PEEL Legend -->
+    <div class="peel-legend">
+      <div class="peel-legend-item"><div class="peel-dot point"></div> Point</div>
+      <div class="peel-legend-item"><div class="peel-dot evidence"></div> Evidence</div>
+      <div class="peel-legend-item"><div class="peel-dot explain"></div> Explain</div>
+      <div class="peel-legend-item"><div class="peel-dot link"></div> Link</div>
+    </div>
+
+    <!-- Paragraph selector -->
+    <div class="paragraph-selector">
+      <label for="ddParagraph">Select a student paragraph to review</label>
+      <select id="ddParagraph"></select>
+    </div>
+
+    <!-- Student paragraph display -->
+    <div class="panel">
+      <div class="panel-header">Student's Paragraph</div>
+      <div class="panel-body">
+        <div class="student-paragraph" id="paragraphDisplay"></div>
+        <div class="paragraph-meta" id="paragraphMeta"></div>
+      </div>
+    </div>
+
+    <!-- PEEL feedback selection -->
+    <div class="panel">
+      <div class="panel-header">Select PEEL Feedback</div>
+      <div class="panel-body" id="peelSelectors"></div>
+    </div>
+
+    <!-- Assembled feedback output -->
+    <div class="panel">
+      <div class="panel-header output-header">
+        <span>Assembled Paragraph Feedback</span>
+        <button class="btn-clear" id="btnClear">Clear All</button>
+      </div>
+      <div class="panel-body" id="feedbackOutput">
+        <div class="output-empty">Select feedback for each PEEL element above to build the paragraph feedback.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="peel.js"></script>
+</body>
+</html>
