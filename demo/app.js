@@ -321,9 +321,15 @@ function renderFeedback(student) {
         html += '<li>' + escapeHtml(tip) + '</li>';
       });
       html += '</ul>';
-      if (section.skillPage) {
-        html += '<a href="' + section.skillPage + '" class="skill-link" target="_blank">Learn this skill: examples, explanations & practice \u2192</a>';
-      }
+      html += '</div>';
+    }
+
+    // Skill page link — outside tips box as a standalone button
+    if (section.skillPage) {
+      html += '<div class="skill-link-wrapper">';
+      html += '<a href="' + section.skillPage + '" class="skill-link" target="_blank">';
+      html += '\ud83d\udcdd Practise this skill: definitions, examples & exercises';
+      html += '</a>';
       html += '</div>';
     }
 
