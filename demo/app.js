@@ -75,6 +75,18 @@ const CATEGORY_ORDER = [
   "Structure", "Writing", "Referencing", "Next Steps", "Overall"
 ];
 
+const CATEGORY_CSS = {
+  "Engagement": "engagement",
+  "Academic Skills": "academic-skills",
+  "Critical Thinking": "critical-thinking",
+  "PEEL Structure": "peel-structure",
+  "Structure": "structure",
+  "Writing": "writing",
+  "Referencing": "referencing",
+  "Next Steps": "next-steps",
+  "Overall": "overall"
+};
+
 // ============================================================
 // STATE
 // ============================================================
@@ -84,8 +96,8 @@ const state = {
   selectedIntro: INTRO_PARAGRAPHS[0],
   selectedFeedback: new Set(),
   customNote: "",
-  categoryFilter: "All",
-  searchText: ""
+  searchText: "",
+  collapsedCategories: new Set()
 };
 
 // ============================================================
@@ -96,10 +108,8 @@ const dom = {
   ddStudent: document.getElementById("ddStudent"),
   lblModule: document.getElementById("lblModule"),
   ddIntro: document.getElementById("ddIntro"),
-  ddCategory: document.getElementById("ddCategory"),
   txtSearch: document.getElementById("txtSearch"),
-  galFeedback: document.getElementById("galFeedback"),
-  lblFilterCount: document.getElementById("lblFilterCount"),
+  categorySections: document.getElementById("categorySections"),
   lblSelectionCount: document.getElementById("lblSelectionCount"),
   txtCustomNote: document.getElementById("txtCustomNote"),
   btnSaveDraft: document.getElementById("btnSaveDraft"),
@@ -158,60 +168,79 @@ function populateIntros() {
   });
 }
 
-function populateCategories() {
-  const allOpt = document.createElement("option");
-  allOpt.value = "All";
-  allOpt.textContent = "All Categories";
-  dom.ddCategory.appendChild(allOpt);
+// ============================================================
+// GROUP FEEDBACK BY CATEGORY
+// ============================================================
+
+function getGroupedFeedback() {
+  const search = state.searchText.toLowerCase();
+  const grouped = {};
+  CATEGORY_ORDER.forEach(cat => { grouped[cat] = []; });
+
+  FEEDBACK_LIBRARY.forEach(item => {
+    if (search) {
+      const match = item.Title.toLowerCase().includes(search) ||
+        item.Tags.toLowerCase().includes(search) ||
+        item.FeedbackText.toLowerCase().includes(search);
+      if (!match) return;
+    }
+    grouped[item.Category].push(item);
+  });
+
+  // Sort within each category
+  Object.keys(grouped).forEach(cat => {
+    grouped[cat].sort((a, b) => a.DisplayOrder - b.DisplayOrder);
+  });
+
+  return grouped;
+}
+
+// ============================================================
+// RENDER CATEGORY SECTIONS
+// ============================================================
+
+function renderCategories() {
+  const grouped = getGroupedFeedback();
+  let html = "";
 
   CATEGORY_ORDER.forEach(cat => {
-    const opt = document.createElement("option");
-    opt.value = cat;
-    opt.textContent = cat;
-    dom.ddCategory.appendChild(opt);
+    const items = grouped[cat];
+    if (items.length === 0) return;
+
+    const cssClass = CATEGORY_CSS[cat];
+    const collapsed = state.collapsedCategories.has(cat);
+    const selectedInCat = items.filter(i => state.selectedFeedback.has(i.FeedbackID)).length;
+    const countLabel = selectedInCat > 0 ? selectedInCat + "/" + items.length : items.length;
+
+    html += '<div class="cat-section">';
+    html += '<div class="cat-header ' + cssClass + (collapsed ? " collapsed" : "") + '" data-category="' + escapeHtml(cat) + '">';
+    html += escapeHtml(cat);
+    html += ' <span class="cat-count">' + countLabel + '</span>';
+    html += '<span class="chevron">\u25BC</span>';
+    html += '</div>';
+    html += '<div class="cat-body' + (collapsed ? " hidden" : "") + '">';
+
+    items.forEach(item => {
+      const checked = state.selectedFeedback.has(item.FeedbackID);
+      const preview = item.FeedbackText.length > 120
+        ? item.FeedbackText.substring(0, 120) + "..."
+        : item.FeedbackText;
+
+      html += '<div class="fb-item' + (checked ? " selected" : "") + '" data-id="' + item.FeedbackID + '">';
+      html += '<input type="checkbox"' + (checked ? " checked" : "") + ' aria-label="Select ' + escapeHtml(item.Title) + '">';
+      html += '<div class="fb-item-content">';
+      html += '<div class="fb-item-title"><span class="fb-item-id">' + item.FeedbackID + '</span>' + escapeHtml(item.Title) + '</div>';
+      html += '<div class="fb-item-text">' + escapeHtml(preview) + '</div>';
+      html += '</div></div>';
+    });
+
+    html += '</div></div>';
   });
-}
 
-// ============================================================
-// FILTERING & GALLERY
-// ============================================================
+  dom.categorySections.innerHTML = html;
 
-function getFilteredFeedback() {
-  return FEEDBACK_LIBRARY.filter(item => {
-    const catMatch = state.categoryFilter === "All" || item.Category === state.categoryFilter;
-    const searchMatch = !state.searchText ||
-      item.Title.toLowerCase().includes(state.searchText.toLowerCase()) ||
-      item.Tags.toLowerCase().includes(state.searchText.toLowerCase());
-    return catMatch && searchMatch;
-  }).sort((a, b) => {
-    const catA = CATEGORY_ORDER.indexOf(a.Category);
-    const catB = CATEGORY_ORDER.indexOf(b.Category);
-    if (catA !== catB) return catA - catB;
-    return a.DisplayOrder - b.DisplayOrder;
-  });
-}
-
-function renderGallery() {
-  const items = getFilteredFeedback();
-  dom.lblFilterCount.textContent = items.length + " item" + (items.length !== 1 ? "s" : "");
-  dom.lblSelectionCount.textContent = state.selectedFeedback.size + " selected";
-
-  dom.galFeedback.innerHTML = items.map(item => {
-    const checked = state.selectedFeedback.has(item.FeedbackID);
-    const preview = item.FeedbackText.length > 100
-      ? item.FeedbackText.substring(0, 100) + "..."
-      : item.FeedbackText;
-
-    return '<div class="gallery-item' + (checked ? ' selected' : '') + '" role="listitem" data-id="' + item.FeedbackID + '">' +
-      '<input type="checkbox" ' + (checked ? 'checked' : '') +
-      ' aria-label="Select ' + escapeHtml(item.Title) + '">' +
-      '<div class="gallery-item-content">' +
-        '<div class="gallery-item-title">' + escapeHtml(item.FeedbackID + " \u2014 " + item.Title) + '</div>' +
-        '<div class="gallery-item-meta">' + escapeHtml(item.Category) + '</div>' +
-        '<div class="gallery-item-preview">' + escapeHtml(preview) + '</div>' +
-      '</div>' +
-    '</div>';
-  }).join("");
+  // Update count
+  dom.lblSelectionCount.textContent = state.selectedFeedback.size + " item" + (state.selectedFeedback.size !== 1 ? "s" : "") + " selected";
 
   updateButtons();
 }
@@ -226,8 +255,21 @@ function toggleFeedback(feedbackId) {
   } else {
     state.selectedFeedback.add(feedbackId);
   }
-  renderGallery();
+  renderCategories();
   renderPreview();
+}
+
+// ============================================================
+// TOGGLE CATEGORY COLLAPSE
+// ============================================================
+
+function toggleCategory(category) {
+  if (state.collapsedCategories.has(category)) {
+    state.collapsedCategories.delete(category);
+  } else {
+    state.collapsedCategories.add(category);
+  }
+  renderCategories();
 }
 
 // ============================================================
@@ -241,22 +283,17 @@ function buildEmailHtml() {
   const intro = state.selectedIntro;
   const date = formatDate();
 
-  // Group selected items by category
   const grouped = {};
   CATEGORY_ORDER.forEach(cat => { grouped[cat] = []; });
-
   FEEDBACK_LIBRARY.forEach(item => {
     if (state.selectedFeedback.has(item.FeedbackID)) {
       grouped[item.Category].push(item);
     }
   });
-
-  // Sort within category
   Object.keys(grouped).forEach(cat => {
     grouped[cat].sort((a, b) => a.DisplayOrder - b.DisplayOrder);
   });
 
-  // Build sections
   let sections = "";
   CATEGORY_ORDER.forEach(cat => {
     if (grouped[cat].length === 0) return;
@@ -265,13 +302,11 @@ function buildEmailHtml() {
     grouped[cat].forEach(item => {
       sections += '<li style="font-size:16px; line-height:1.5; color:#1a1a1a; margin:0 0 12px 0; font-family:Arial, Helvetica, sans-serif;">' +
         '<strong>' + escapeHtml(item.Title) + '</strong><br>' +
-        escapeHtml(item.FeedbackText) +
-        '</li>';
+        escapeHtml(item.FeedbackText) + '</li>';
     });
     sections += '</ul>';
   });
 
-  // Custom note
   let customNoteHtml = "";
   if (state.customNote.trim()) {
     customNoteHtml = '<h2 style="font-size:20px; line-height:1.3; color:#1a1a1a; margin:24px 0 12px 0; font-family:Arial, Helvetica, sans-serif;">A Note from Your Tutor</h2>' +
@@ -403,7 +438,7 @@ function onStudentChange() {
     dom.lblModule.textContent = state.selectedStudent.Module + "  \u00b7  " + state.selectedStudent.Tutor;
   }
   state.selectedFeedback.clear();
-  renderGallery();
+  renderCategories();
   renderPreview();
 }
 
@@ -413,14 +448,9 @@ function onIntroChange() {
   renderPreview();
 }
 
-function onCategoryChange() {
-  state.categoryFilter = dom.ddCategory.value;
-  renderGallery();
-}
-
 function onSearchInput() {
   state.searchText = dom.txtSearch.value;
-  renderGallery();
+  renderCategories();
 }
 
 function onCustomNoteInput() {
@@ -428,24 +458,32 @@ function onCustomNoteInput() {
   renderPreview();
 }
 
-function onGalleryClick(e) {
-  const item = e.target.closest(".gallery-item");
-  if (!item) return;
-  const id = item.dataset.id;
-  if (id) toggleFeedback(id);
+function onCategorySectionsClick(e) {
+  // Handle category header collapse toggle
+  const header = e.target.closest(".cat-header");
+  if (header) {
+    toggleCategory(header.dataset.category);
+    return;
+  }
+
+  // Handle feedback item click
+  const item = e.target.closest(".fb-item");
+  if (item) {
+    const id = item.dataset.id;
+    if (id) toggleFeedback(id);
+  }
 }
 
 function onSaveDraft() {
   if (!state.selectedStudent || state.selectedFeedback.size === 0) return;
-  const selectionData = {
+  console.log("Draft saved:", {
     SelectionID: "SEL-" + Date.now(),
     StudentEmail: state.selectedStudent.Email,
     Module: state.selectedStudent.Module,
     SelectedFeedbackIDs: Array.from(state.selectedFeedback).map(id => ({ FeedbackID: id })),
     CustomNote: state.customNote,
     Status: "Draft"
-  };
-  console.log("Draft saved:", selectionData);
+  });
   showToast("Draft saved for " + state.selectedStudent.StudentName, "success");
 }
 
@@ -457,8 +495,6 @@ function onSubmitSend() {
 
   setTimeout(() => {
     const email = state.selectedStudent.Email;
-    const name = state.selectedStudent.StudentName;
-
     console.log("Submitted:", {
       SelectionID: "SEL-" + Date.now(),
       StudentEmail: email,
@@ -471,19 +507,17 @@ function onSubmitSend() {
     dom.btnSubmitSend.classList.remove("loading");
     showToast("Email sent to " + email + "!", "success");
 
-    // Reset form
     state.selectedFeedback.clear();
     state.customNote = "";
     dom.txtCustomNote.value = "";
     dom.ddStudent.value = "";
     state.selectedStudent = null;
     dom.lblModule.textContent = "Select a student above";
-    renderGallery();
+    renderCategories();
     renderPreview();
   }, 1500);
 }
 
-// Preview tab switching
 function onTabClick(e) {
   const tab = e.target.closest(".preview-tab");
   if (!tab) return;
@@ -508,20 +542,18 @@ function onTabClick(e) {
 function init() {
   populateStudents();
   populateIntros();
-  populateCategories();
 
   dom.ddStudent.addEventListener("change", onStudentChange);
   dom.ddIntro.addEventListener("change", onIntroChange);
-  dom.ddCategory.addEventListener("change", onCategoryChange);
   dom.txtSearch.addEventListener("input", onSearchInput);
   dom.txtCustomNote.addEventListener("input", onCustomNoteInput);
-  dom.galFeedback.addEventListener("click", onGalleryClick);
+  dom.categorySections.addEventListener("click", onCategorySectionsClick);
   dom.btnSaveDraft.addEventListener("click", onSaveDraft);
   dom.btnSubmitSend.addEventListener("click", onSubmitSend);
 
   document.querySelector(".preview-tabs").addEventListener("click", onTabClick);
 
-  renderGallery();
+  renderCategories();
   renderPreview();
 }
 
