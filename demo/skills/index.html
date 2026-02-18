@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Skills Hub</title>
+  <link rel="stylesheet" href="skill.css">
+  <style>
+    .hub-header { margin-bottom: 32px; }
+    .hub-header h1 { font-size: 28px; font-weight: 700; margin: 0 0 6px; color: var(--primary); }
+    .hub-header p { font-size: 15px; color: var(--text-muted); margin: 0; }
+
+    .skill-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden;
+      text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.15s;
+      display: flex;
+    }
+    .skill-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); transform: translateY(-1px); }
+
+    .skill-card-accent {
+      width: 6px; flex-shrink: 0;
+    }
+    .skill-card-body { padding: 20px 24px; flex: 1; }
+    .skill-card-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .skill-card-desc { font-size: 14px; color: var(--text-sec); line-height: 1.6; margin-bottom: 8px; }
+    .skill-card-link { font-size: 13px; font-weight: 600; }
+
+    .accent-green { background: #276749; }
+    .accent-blue { background: #2b6cb0; }
+    .accent-purple { background: #553c9a; }
+    .accent-orange { background: #c05621; }
+    .accent-teal { background: #285e61; }
+
+    .skill-card-title.green { color: #276749; }
+    .skill-card-title.blue { color: #2b6cb0; }
+    .skill-card-title.purple { color: #553c9a; }
+    .skill-card-title.orange { color: #c05621; }
+    .skill-card-title.teal { color: #285e61; }
+
+    .skill-card-link.green { color: #276749; }
+    .skill-card-link.blue { color: #2b6cb0; }
+    .skill-card-link.purple { color: #553c9a; }
+    .skill-card-link.orange { color: #c05621; }
+    .skill-card-link.teal { color: #285e61; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">*** THIS IS SAMPLE DATA ONLY ***</div>
+  <div class="nav">
+    <div class="nav-title">Your Feedback — Study Skills</div>
+    <a href="../index.html">&larr; Back to Feedback Portal</a>
+  </div>
+
+  <div class="content">
+    <div class="hub-header">
+      <h1>Study Skills Hub</h1>
+      <p>Each skill page includes a definition, worked examples with explanations, and a practice exercise with feedback. Click any skill to get started.</p>
+    </div>
+
+    <div class="skill-grid">
+      <a href="structure.html" class="skill-card">
+        <div class="skill-card-accent accent-green"></div>
+        <div class="skill-card-body">
+          <div class="skill-card-title green">\ud83c\udfd7\ufe0f Essay Structure</div>
+          <div class="skill-card-desc">How to organise your essay with a clear introduction, focused body paragraphs, and a synthesising conclusion. Includes examples of strong vs. weak conclusions.</div>
+          <div class="skill-card-link green">View skill page \u2192</div>
+        </div>
+      </a>
+
+      <a href="understanding.html" class="skill-card">
+        <div class="skill-card-accent accent-blue"></div>
+        <div class="skill-card-body">
+          <div class="skill-card-title blue">\ud83d\udca1 Understanding & Summarising</div>
+          <div class="skill-card-desc">How to select content effectively and summarise research studies in your own words. Learn the difference between vague and specific summaries.</div>
+          <div class="skill-card-link blue">View skill page \u2192</div>
+        </div>
+      </a>
+
+      <a href="argument.html" class="skill-card">
+        <div class="skill-card-accent accent-purple"></div>
+        <div class="skill-card-body">
+          <div class="skill-card-title purple">\ud83c\udfaf Building an Argument</div>
+          <div class="skill-card-desc">How to take a position, support it with evidence, and build a persuasive case. See the difference between descriptive and argumentative writing.</div>
+          <div class="skill-card-link purple">View skill page \u2192</div>
+        </div>
+      </a>
+
+      <a href="writing.html" class="skill-card">
+        <div class="skill-card-accent accent-orange"></div>
+        <div class="skill-card-body">
+          <div class="skill-card-title orange">\u270d\ufe0f Academic Writing Skills</div>
+          <div class="skill-card-desc">How to write concisely, clearly, and in an appropriate academic tone. Practise converting informal notes into formal academic paragraphs.</div>
+          <div class="skill-card-link orange">View skill page \u2192</div>
+        </div>
+      </a>
+
+      <a href="referencing.html" class="skill-card">
+        <div class="skill-card-accent accent-teal"></div>
+        <div class="skill-card-body">
+          <div class="skill-card-title teal">\ud83d\udcda Referencing</div>
+          <div class="skill-card-desc">How to cite sources accurately using APA 7th edition. Learn the rules for in-text citations, reference lists, and common mistakes to avoid.</div>
+          <div class="skill-card-link teal">View skill page \u2192</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
