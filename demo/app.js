@@ -245,7 +245,7 @@ const STUDENTS = {
 const SECTIONS = [
   {
     key: "structure", title: "Structure", icon: "\ud83c\udfd7\ufe0f",
-    cssClass: "section-structure", skillPage: "skills/structure.html",
+    cssClass: "sec-structure", skillPage: "skills/structure.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "introduction", title: "Introduction" },
@@ -254,7 +254,7 @@ const SECTIONS = [
   },
   {
     key: "understanding", title: "Understanding", icon: "\ud83d\udca1",
-    cssClass: "section-understanding", skillPage: "skills/understanding.html",
+    cssClass: "sec-understanding", skillPage: "skills/understanding.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "content", title: "Content Selection" },
@@ -263,7 +263,7 @@ const SECTIONS = [
   },
   {
     key: "argument", title: "Argument", icon: "\ud83c\udfaf",
-    cssClass: "section-argument", skillPage: "skills/argument.html",
+    cssClass: "sec-argument", skillPage: "skills/argument.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "framing", title: "Framing Your Argument" }
@@ -271,7 +271,7 @@ const SECTIONS = [
   },
   {
     key: "writing", title: "Academic Writing Skills", icon: "\u270d\ufe0f",
-    cssClass: "section-writing", skillPage: "skills/writing.html",
+    cssClass: "sec-writing", skillPage: "skills/writing.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "conciseness", title: "Conciseness" },
@@ -281,7 +281,7 @@ const SECTIONS = [
   },
   {
     key: "referencing", title: "Referencing", icon: "\ud83d\udcda",
-    cssClass: "section-referencing", skillPage: "skills/referencing.html",
+    cssClass: "sec-referencing", skillPage: "skills/referencing.html",
     subsections: [
       { key: "overall", title: "Overview" },
       { key: "citing", title: "In-Text Citations" },
@@ -435,22 +435,23 @@ function renderDetail(assignmentId) {
   html += '<button class="btn-print" onclick="window.print()">\ud83d\udda8\ufe0f Print / Save PDF</button>';
   html += '</div>';
 
-  // Welcome banner with grade
-  html += '<div class="welcome-banner">';
+  // Welcome panel
+  html += '<div class="welcome-panel">';
   html += '<div class="welcome-name">' + escapeHtml(student.name) + '</div>';
   html += '<div class="welcome-meta">';
   html += '<span>' + escapeHtml(assignment.module) + '</span>';
   html += '<span>' + escapeHtml(assignment.title) + '</span>';
   html += '</div>';
   html += '<div class="welcome-grade-row">';
-  html += '<span class="welcome-grade-badge ' + welcomeGradeClass(assignment.band) + '">' + assignment.grade + '% \u2014 ' + escapeHtml(assignment.band) + '</span>';
-  html += '<span style="font-size:13px;opacity:0.7;">' + escapeHtml(assignment.date) + '</span>';
+  html += '<span class="welcome-grade-badge">' + assignment.grade + '% \u2014 ' + escapeHtml(assignment.band) + '</span>';
+  html += '<span class="welcome-date">' + escapeHtml(assignment.date) + '</span>';
   html += '</div>';
   html += '</div>';
 
-  // Intro
-  html += '<div class="intro-block">';
-  html += 'We have assessed your essay and here is feedback on your current performance and how you can improve on future assignments. Each section below covers a different aspect of your work. Please read each comment carefully and use the tips to guide your development.';
+  // Intro (PEEL panel style)
+  html += '<div class="intro-panel">';
+  html += '<div class="panel-hdr">About This Feedback</div>';
+  html += '<div class="panel-body">We have assessed your essay and here is feedback on your current performance and how you can improve on future assignments. Each section below covers a different aspect of your work. Please read each comment carefully and use the tips to guide your development.</div>';
   html += '</div>';
 
   // Feedback sections
@@ -459,10 +460,7 @@ function renderDetail(assignmentId) {
     if (!data) return;
 
     html += '<div class="fb-section ' + section.cssClass + '">';
-    html += '<div class="fb-section-header">';
-    html += '<div class="fb-section-icon">' + section.icon + '</div>';
-    html += '<div class="fb-section-title">' + escapeHtml(section.title) + '</div>';
-    html += '</div>';
+    html += '<div class="fb-section-hdr">' + section.icon + ' ' + escapeHtml(section.title) + '</div>';
     html += '<div class="fb-section-body">';
 
     section.subsections.forEach(function(sub, i) {
@@ -506,7 +504,7 @@ function renderDetail(assignmentId) {
     var pct = Math.round((doneCount / assignment.actionPlan.length) * 100);
 
     html += '<div class="action-plan">';
-    html += '<div class="action-plan-header">\ud83c\udfaf Your Action Plan</div>';
+    html += '<div class="action-plan-hdr">\ud83c\udfaf Your Action Plan</div>';
     html += '<div class="action-plan-body">';
     html += '<div class="action-plan-intro">Based on your feedback, here are your priority actions for your next assignment. Tick them off as you work through them.</div>';
 
