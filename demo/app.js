@@ -304,9 +304,14 @@ var currentAssignmentId = null;
 
 var dom = {
   loginPage: document.getElementById("loginPage"),
+  roleSelect: document.getElementById("roleSelect"),
+  studentLogin: document.getElementById("studentLogin"),
   appPage: document.getElementById("appPage"),
   appContent: document.getElementById("appContent"),
   loginEmail: document.getElementById("loginEmail"),
+  btnRoleStudent: document.getElementById("btnRoleStudent"),
+  btnRoleStaff: document.getElementById("btnRoleStaff"),
+  btnBackToRoles: document.getElementById("btnBackToRoles"),
   btnLogin: document.getElementById("btnLogin"),
   btnLogout: document.getElementById("btnLogout"),
   navHome: document.getElementById("navHome"),
@@ -572,6 +577,8 @@ function showLogin() {
   currentAssignmentId = null;
   dom.appPage.style.display = "none";
   dom.loginPage.style.display = "flex";
+  dom.roleSelect.style.display = "";
+  dom.studentLogin.style.display = "none";
   dom.appContent.innerHTML = "";
   window.scrollTo(0, 0);
 }
@@ -620,6 +627,21 @@ function logout() {
 // ============================================================
 // EVENTS
 // ============================================================
+
+// Role selection
+dom.btnRoleStudent.addEventListener("click", function() {
+  dom.roleSelect.style.display = "none";
+  dom.studentLogin.style.display = "";
+});
+
+dom.btnRoleStaff.addEventListener("click", function() {
+  window.location.href = "../demo_v1/index.html";
+});
+
+dom.btnBackToRoles.addEventListener("click", function() {
+  dom.studentLogin.style.display = "none";
+  dom.roleSelect.style.display = "";
+});
 
 dom.btnLogin.addEventListener("click", login);
 dom.btnLogout.addEventListener("click", logout);

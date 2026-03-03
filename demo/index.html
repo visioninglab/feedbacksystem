@@ -74,6 +74,29 @@
       border-radius: 6px; font-size: 12px; color: #92400e; line-height: 1.5;
     }
 
+    /* Role selection buttons */
+    .role-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .role-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 22px 16px; border: 2px solid var(--border); border-radius: 10px;
+      background: var(--surface); cursor: pointer; transition: all 0.2s;
+      font-family: inherit;
+    }
+    .role-btn:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(44,62,107,0.12); transform: translateY(-1px); }
+    .role-icon { font-size: 32px; line-height: 1; }
+    .role-label { font-size: 16px; font-weight: 700; color: var(--primary); }
+    .role-desc { font-size: 12px; color: var(--text-muted); }
+    .role-student:hover { border-color: var(--primary); background: #f0f4ff; }
+    .role-staff:hover { border-color: var(--c-argument); background: #f9f5fd; }
+    .role-staff:hover .role-label { color: var(--c-argument); }
+
+    .login-back {
+      display: inline-block; margin-top: 14px; padding: 0; border: none; background: none;
+      font-size: 13px; font-weight: 600; color: var(--primary); cursor: pointer;
+      font-family: inherit;
+    }
+    .login-back:hover { color: var(--primary-light); }
+
     /* ========== APP PAGES ========== */
     .app-page { display: none; min-height: 100vh; }
 
@@ -330,8 +353,30 @@
 
   <!-- LOGIN -->
   <div class="login-page" id="loginPage">
-    <div class="login-card">
+    <!-- Role selection -->
+    <div class="login-card" id="roleSelect">
       <div class="login-logo">Your Feedback</div>
+      <div class="login-subtitle">Psychology Department Feedback Portal</div>
+      <div class="role-buttons">
+        <button class="role-btn role-student" id="btnRoleStudent">
+          <span class="role-icon">&#127891;</span>
+          <span class="role-label">Student Login</span>
+          <span class="role-desc">View your personalised feedback</span>
+        </button>
+        <button class="role-btn role-staff" id="btnRoleStaff">
+          <span class="role-icon">&#128218;</span>
+          <span class="role-label">Staff Login</span>
+          <span class="role-desc">Manage and build feedback</span>
+        </button>
+      </div>
+      <div class="login-demo-note">
+        This is a demo with sample data. Choose a role to continue.
+      </div>
+    </div>
+
+    <!-- Student login form (hidden initially) -->
+    <div class="login-card" id="studentLogin" style="display:none;">
+      <div class="login-logo">Student Login</div>
       <div class="login-subtitle">Psychology Department Feedback Portal</div>
       <div class="login-field">
         <label for="loginEmail">Student Email</label>
@@ -343,9 +388,9 @@
       </div>
       <button class="login-btn" id="btnLogin">Enter</button>
       <div class="login-demo-note">
-        This is a demo with sample data. Click <strong>Enter</strong> to view personalised feedback.<br>
-        <a href="../demo_v1/index.html" style="color:#92400e; font-weight:600;">View v1 demo (Tutor Feedback Builder) &rarr;</a>
+        This is a demo with sample data. Click <strong>Enter</strong> to view personalised feedback.
       </div>
+      <button class="login-back" id="btnBackToRoles">&larr; Back</button>
     </div>
   </div>
 
