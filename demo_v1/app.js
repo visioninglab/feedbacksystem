@@ -527,11 +527,11 @@ function onTabClick(e) {
 
   const which = tab.dataset.tab;
   if (which === "html") {
-    dom.previewHtml.style.display = "";
+    dom.previewHtml.style.display = "block";
     dom.previewPlain.style.display = "none";
   } else {
     dom.previewHtml.style.display = "none";
-    dom.previewPlain.style.display = "";
+    dom.previewPlain.style.display = "block";
   }
 }
 

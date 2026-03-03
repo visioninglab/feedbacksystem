@@ -577,7 +577,7 @@ function showLogin() {
   currentAssignmentId = null;
   dom.appPage.style.display = "none";
   dom.loginPage.style.display = "flex";
-  dom.roleSelect.style.display = "";
+  dom.roleSelect.style.display = "block";
   dom.studentLogin.style.display = "none";
   dom.appContent.innerHTML = "";
   window.scrollTo(0, 0);
@@ -631,7 +631,7 @@ function logout() {
 // Role selection
 dom.btnRoleStudent.addEventListener("click", function() {
   dom.roleSelect.style.display = "none";
-  dom.studentLogin.style.display = "";
+  dom.studentLogin.style.display = "block";
 });
 
 dom.btnRoleStaff.addEventListener("click", function() {
@@ -640,7 +640,7 @@ dom.btnRoleStaff.addEventListener("click", function() {
 
 dom.btnBackToRoles.addEventListener("click", function() {
   dom.studentLogin.style.display = "none";
-  dom.roleSelect.style.display = "";
+  dom.roleSelect.style.display = "block";
 });
 
 dom.btnLogin.addEventListener("click", login);
