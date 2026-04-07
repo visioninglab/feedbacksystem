@@ -295,7 +295,7 @@ const SECTIONS = [
 // ============================================================
 
 var currentStudent = null;
-var currentView = "login"; // login | list | detail
+var currentView = "list"; // list | detail
 var currentAssignmentId = null;
 
 // ============================================================
@@ -303,16 +303,8 @@ var currentAssignmentId = null;
 // ============================================================
 
 var dom = {
-  loginPage: document.getElementById("loginPage"),
-  roleSelect: document.getElementById("roleSelect"),
-  studentLogin: document.getElementById("studentLogin"),
   appPage: document.getElementById("appPage"),
   appContent: document.getElementById("appContent"),
-  loginEmail: document.getElementById("loginEmail"),
-  btnRoleStudent: document.getElementById("btnRoleStudent"),
-  btnBackToRoles: document.getElementById("btnBackToRoles"),
-  btnLogin: document.getElementById("btnLogin"),
-  btnLogout: document.getElementById("btnLogout"),
   navHome: document.getElementById("navHome"),
   navUser: document.getElementById("navUser")
 };
@@ -570,22 +562,9 @@ function renderDetail(assignmentId) {
 // VIEW MANAGEMENT
 // ============================================================
 
-function showLogin() {
-  currentView = "login";
-  currentStudent = null;
-  currentAssignmentId = null;
-  dom.appPage.style.display = "none";
-  dom.loginPage.style.display = "flex";
-  dom.roleSelect.style.display = "block";
-  dom.studentLogin.style.display = "none";
-  dom.appContent.innerHTML = "";
-  window.scrollTo(0, 0);
-}
-
 function showList() {
   currentView = "list";
   currentAssignmentId = null;
-  dom.loginPage.style.display = "none";
   dom.appPage.style.display = "block";
   dom.navUser.textContent = currentStudent.name;
   renderList();
@@ -599,54 +578,13 @@ function showDetail(assignmentId) {
 }
 
 // ============================================================
-// LOGIN / LOGOUT
-// ============================================================
-
-function login() {
-  var email = dom.loginEmail.value.trim().toLowerCase();
-  var student = STUDENTS[email];
-
-  if (!student) {
-    alert("Student not found. Try: mei.chen@university.ac.uk or james.okafor@university.ac.uk");
-    return;
-  }
-
-  currentStudent = student;
-  showList();
-}
-
-function logout() {
-  showLogin();
-}
-
-// ============================================================
-// POPULATE INTRO DROPDOWNS (not needed here but keep for compat)
-// ============================================================
-
-// ============================================================
 // EVENTS
 // ============================================================
 
-// Role selection
-dom.btnRoleStudent.addEventListener("click", function() {
-  dom.roleSelect.style.display = "none";
-  dom.studentLogin.style.display = "block";
-});
-
-dom.btnBackToRoles.addEventListener("click", function() {
-  dom.studentLogin.style.display = "none";
-  dom.roleSelect.style.display = "block";
-});
-
-dom.btnLogin.addEventListener("click", login);
-dom.btnLogout.addEventListener("click", logout);
 dom.navHome.addEventListener("click", function() {
   if (currentStudent) showList();
 });
 
-dom.loginEmail.addEventListener("keydown", function(e) {
-  if (e.key === "Enter") login();
-});
-document.getElementById("loginPassword").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") login();
-});
+// Auto-load default student
+currentStudent = STUDENTS["mei.chen@university.ac.uk"];
+showList();

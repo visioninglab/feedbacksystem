@@ -351,44 +351,6 @@
 </head>
 <body>
 
-  <!-- LOGIN -->
-  <div class="login-page" id="loginPage">
-    <!-- Role selection -->
-    <div class="login-card" id="roleSelect">
-      <div class="login-logo">Your Feedback</div>
-      <div class="login-subtitle">Psychology Department Feedback Portal</div>
-      <div class="role-buttons">
-        <button class="role-btn role-student" id="btnRoleStudent">
-          <span class="role-icon">&#127891;</span>
-          <span class="role-label">Student Login</span>
-          <span class="role-desc">View your personalised feedback</span>
-        </button>
-      </div>
-      <div class="login-demo-note">
-        This is a demo with sample data. Choose a role to continue.
-      </div>
-    </div>
-
-    <!-- Student login form (hidden initially) -->
-    <div class="login-card" id="studentLogin" style="display:none;">
-      <div class="login-logo">Student Login</div>
-      <div class="login-subtitle">Psychology Department Feedback Portal</div>
-      <div class="login-field">
-        <label for="loginEmail">Student Email</label>
-        <input type="text" id="loginEmail" value="mei.chen@university.ac.uk">
-      </div>
-      <div class="login-field">
-        <label for="loginPassword">Password</label>
-        <input type="password" id="loginPassword" value="demo1234">
-      </div>
-      <button class="login-btn" id="btnLogin">Enter</button>
-      <div class="login-demo-note">
-        This is a demo with sample data. Click <strong>Enter</strong> to view personalised feedback.
-      </div>
-      <button class="login-back" id="btnBackToRoles">&larr; Back</button>
-    </div>
-  </div>
-
   <!-- APP -->
   <div class="app-page" id="appPage">
     <div class="banner">*** THIS IS SAMPLE DATA ONLY ***</div>
@@ -400,7 +362,6 @@
       </div>
       <div class="nav-right">
         <span class="nav-user" id="navUser"></span>
-        <button class="nav-logout" id="btnLogout">Log out</button>
       </div>
     </div>
     <div class="content" id="appContent"></div>
