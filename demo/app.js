@@ -310,7 +310,6 @@ var dom = {
   appContent: document.getElementById("appContent"),
   loginEmail: document.getElementById("loginEmail"),
   btnRoleStudent: document.getElementById("btnRoleStudent"),
-  btnRoleStaff: document.getElementById("btnRoleStaff"),
   btnBackToRoles: document.getElementById("btnBackToRoles"),
   btnLogin: document.getElementById("btnLogin"),
   btnLogout: document.getElementById("btnLogout"),
@@ -632,10 +631,6 @@ function logout() {
 dom.btnRoleStudent.addEventListener("click", function() {
   dom.roleSelect.style.display = "none";
   dom.studentLogin.style.display = "block";
-});
-
-dom.btnRoleStaff.addEventListener("click", function() {
-  window.location.href = "../demo_v1/index.html";
 });
 
 dom.btnBackToRoles.addEventListener("click", function() {
