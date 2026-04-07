@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PEEL Paragraph Feedback</title>
+  <title>Practise PEEL — Study Skills</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
 
     /* ========== TOP BAR ========== */
     .topbar {
-      max-width: 1200px; margin: 0 auto; padding: 28px 32px 0;
+      max-width: 900px; margin: 0 auto; padding: 28px 32px 0;
       display: flex; align-items: center; justify-content: space-between;
     }
     .brand { display: flex; align-items: baseline; gap: 10px; }
@@ -64,14 +64,9 @@
       font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em;
     }
     .brand-sub { font-size: 12px; color: var(--ink-mute); margin-left: 4px; }
-    .topnav-back {
-      color: var(--ink-soft); text-decoration: none; font-size: 14px; font-weight: 500;
-      padding-bottom: 4px; border-bottom: 1.5px solid transparent;
-    }
-    .topnav-back:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
     .demo-banner {
-      max-width: 1200px; margin: 16px auto 0; padding: 0 32px;
+      max-width: 900px; margin: 16px auto 0; padding: 0 32px;
     }
     .demo-banner-inner {
       background: var(--cream-deep); border: 1px solid var(--line);
@@ -81,7 +76,7 @@
       max-width: 220px; margin: 0 auto;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 36px 32px 80px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 36px 32px 96px; }
 
     /* ========== PAGE HEADER ========== */
     .page-eyebrow {
@@ -97,199 +92,177 @@
       margin: 0 0 36px; line-height: 1.55;
     }
 
-    /* ========== TOP BAR: SELECTOR + LEGEND ========== */
-    .top-bar {
-      display: flex; align-items: flex-end; gap: 32px; margin-bottom: 28px;
-      flex-wrap: wrap;
+    /* ========== DEFINITION STRIP ========== */
+    .peel-defs {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      margin-bottom: 32px;
     }
-    .top-bar .form-group { flex: 1; min-width: 320px; }
-    .top-bar label {
-      display: block; font-size: 11px; font-weight: 700;
+    @media (max-width: 720px) { .peel-defs { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .peel-defs { grid-template-columns: 1fr; } }
+
+    .def-card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px; position: relative;
+    }
+    .def-card::before {
+      content: ''; position: absolute; top: 14px; left: 16px;
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .def-card.point::before    { background: var(--point); }
+    .def-card.evidence::before { background: var(--evidence); }
+    .def-card.explain::before  { background: var(--explain); }
+    .def-card.link::before     { background: var(--link); }
+    .def-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; padding-left: 16px; margin-bottom: 4px;
+    }
+    .def-card.point    .def-label { color: var(--point); }
+    .def-card.evidence .def-label { color: var(--evidence); }
+    .def-card.explain  .def-label { color: var(--explain); }
+    .def-card.link     .def-label { color: var(--link); }
+    .def-text { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+
+    /* ========== PARAGRAPH PICKER ========== */
+    .picker {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 22px 26px;
+      margin-bottom: 24px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .picker label {
+      font-size: 11px; font-weight: 700;
       color: var(--ink-mute); text-transform: uppercase;
-      letter-spacing: 0.12em; margin-bottom: 8px;
+      letter-spacing: 0.12em;
     }
-    .top-bar select {
+    .picker select {
       width: 100%; padding: 12px 16px;
       border: 1px solid var(--line); border-radius: var(--radius-sm);
-      font-size: 14px; font-family: 'Inter', sans-serif;
-      background: var(--paper); color: var(--ink);
+      font-size: 15px; font-family: 'Inter', sans-serif;
+      background: var(--cream); color: var(--ink);
       cursor: pointer;
     }
-    .top-bar select:focus { outline: none; border-color: var(--ink); }
-
-    .peel-legend {
-      display: flex; gap: 18px; flex-wrap: wrap;
-      padding-bottom: 14px;
+    .picker select:focus { outline: none; border-color: var(--ink); background: var(--paper); }
+    .topic-line {
+      font-family: 'Fraunces', serif; font-size: 16px; font-style: italic;
+      color: var(--ink-soft); margin: 0;
     }
-    .peel-legend-item {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--ink-soft);
+    .topic-line::before { content: 'Essay question: '; font-style: normal; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 8px; }
+
+    /* ========== INSTRUCTIONS ========== */
+    .instructions {
+      font-size: 14.5px; color: var(--ink-soft); margin: 0 0 24px;
+      max-width: 640px;
     }
-    .peel-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .peel-dot.point { background: var(--point); }
-    .peel-dot.evidence { background: var(--evidence); }
-    .peel-dot.explain { background: var(--explain); }
-    .peel-dot.link { background: var(--link); }
+    .instructions strong { color: var(--ink); font-weight: 600; }
 
-    /* ========== TWO-COLUMN MAIN ========== */
-    .main-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; }
-    @media (max-width: 960px) { .main-grid { grid-template-columns: 1fr; } }
+    /* ========== QUIZ ========== */
+    .quiz { display: flex; flex-direction: column; gap: 20px; }
 
-    /* ========== PANELS ========== */
-    .panel {
+    .qsentence {
       background: var(--paper); border: 1px solid var(--line);
-      border-radius: var(--radius); overflow: hidden;
+      border-radius: var(--radius); padding: 26px 30px;
+      transition: border-color 0.2s;
     }
-    .panel-hdr {
-      padding: 22px 28px 4px;
+    .qsentence.answered.correct { border-color: var(--sage); }
+    .qsentence.answered.wrong   { border-color: var(--coral); }
+
+    .qtext {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 17px; line-height: 1.75;
+      color: var(--ink); margin: 0 0 18px;
+      display: inline;
+    }
+    .qtext.point    { box-shadow: 0 -3px 0 var(--point) inset; }
+    .qtext.evidence { box-shadow: 0 -3px 0 var(--evidence) inset; }
+    .qtext.explain  { box-shadow: 0 -3px 0 var(--explain) inset; }
+    .qtext.link     { box-shadow: 0 -3px 0 var(--link) inset; }
+
+    .qchoices {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .qchoice {
+      flex: 1; min-width: 110px;
+      padding: 11px 14px;
+      background: var(--cream); border: 1.5px solid var(--line);
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      color: var(--ink); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .qchoice:hover:not(:disabled) { border-color: var(--ink); background: var(--paper); }
+    .qchoice:disabled { cursor: default; }
+    .qchoice.chosen-correct {
+      background: var(--sage-bg); border-color: var(--sage); color: var(--sage);
+    }
+    .qchoice.chosen-wrong {
+      background: var(--coral-bg); border-color: var(--coral); color: var(--coral);
+    }
+    .qchoice.reveal-correct {
+      background: var(--paper); border-color: var(--sage); color: var(--sage);
+      border-style: dashed;
+    }
+    .qchoice.faded { opacity: 0.4; }
+
+    .qresult {
+      margin-top: 20px; padding: 16px 20px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid;
+    }
+    .qresult.good { background: var(--sage-bg); border-left-color: var(--sage); }
+    .qresult.bad  { background: var(--coral-bg); border-left-color: var(--coral); }
+    .qresult-headline {
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .qresult.good .qresult-headline { color: var(--sage); }
+    .qresult.bad  .qresult-headline { color: var(--coral); }
+    .qicon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      font-size: 13px; font-weight: 700;
+      color: var(--paper);
+    }
+    .qresult.good .qicon { background: var(--sage); }
+    .qresult.bad  .qicon { background: var(--coral); }
+    .qwhy {
+      margin: 0; font-size: 14.5px; line-height: 1.65;
+      color: var(--ink-soft);
+    }
+
+    /* ========== FOOTER ACTIONS ========== */
+    .actions-bar {
+      margin-top: 28px; padding: 20px 26px;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .score-line {
       font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500;
       color: var(--ink); letter-spacing: -0.005em;
-      display: flex; align-items: center; gap: 8px;
     }
-    .panel-body { padding: 16px 28px 28px; }
-
-    /* ========== STUDENT PARAGRAPH ========== */
-    .student-para {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: 17px;
-      line-height: 1.85;
-      color: var(--ink);
+    .actions-bar-buttons { display: flex; gap: 10px; }
+    .btn-secondary, .btn-primary {
+      padding: 10px 20px; border-radius: 999px;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer;
+      border: 1px solid var(--line); background: var(--paper);
+      color: var(--ink-soft);
     }
-    .peel-sent {
-      padding: 1px 0;
-      box-shadow: 0 -2px 0 transparent inset;
-      transition: box-shadow 0.2s;
+    .btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-primary {
+      background: var(--ink); color: var(--cream); border-color: var(--ink);
     }
-    .peel-sent.point    { box-shadow: 0 -3px 0 var(--point) inset; }
-    .peel-sent.evidence { box-shadow: 0 -3px 0 var(--evidence) inset; }
-    .peel-sent.explain  { box-shadow: 0 -3px 0 var(--explain) inset; }
-    .peel-sent.link     { box-shadow: 0 -3px 0 var(--link) inset; }
-
-    .peel-tag {
-      font-family: 'Inter', sans-serif;
-      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-      padding: 2px 6px; border-radius: 999px; color: var(--paper);
-      margin-right: 4px; vertical-align: 2px;
-    }
-    .peel-tag.point    { background: var(--point); }
-    .peel-tag.evidence { background: var(--evidence); }
-    .peel-tag.explain  { background: var(--explain); }
-    .peel-tag.link     { background: var(--link); }
-
-    .para-meta {
-      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line-soft);
-      font-size: 12px; color: var(--ink-mute);
-    }
-
-    /* ========== PEEL SELECTOR GRID ========== */
-    .peel-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin-top: 20px;
-    }
-    @media (max-width: 600px) { .peel-grid { grid-template-columns: 1fr; } }
-
-    .peel-card {
-      background: var(--paper); border: 1px solid var(--line);
-      border-radius: var(--radius); overflow: hidden;
-    }
-    .peel-card-hdr {
-      padding: 14px 18px;
-      font-family: 'Inter', sans-serif;
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.12em;
-      display: flex; align-items: center; gap: 8px;
-      background: var(--cream); color: var(--ink-soft);
-      border-bottom: 1px solid var(--line-soft);
-      position: relative;
-    }
-    .peel-card-hdr::before {
-      content: ''; display: inline-block; width: 8px; height: 8px;
-      border-radius: 50%; flex-shrink: 0;
-    }
-    .peel-card-hdr.point::before    { background: var(--point); }
-    .peel-card-hdr.evidence::before { background: var(--evidence); }
-    .peel-card-hdr.explain::before  { background: var(--explain); }
-    .peel-card-hdr.link::before     { background: var(--link); }
-
-    .peel-card-body { padding: 12px; }
-
-    .fb-opt {
-      display: flex; gap: 10px; padding: 12px 14px;
-      border: 1.5px solid var(--line-soft);
-      border-radius: var(--radius-sm); cursor: pointer;
-      transition: all 0.15s;
-      margin-bottom: 8px; background: var(--paper);
-    }
-    .fb-opt:last-child { margin-bottom: 0; }
-    .fb-opt:hover { border-color: var(--ink-mute); background: var(--cream); }
-    .fb-opt.sel.point    { border-color: var(--point); background: var(--point-bg); }
-    .fb-opt.sel.evidence { border-color: var(--evidence); background: var(--evidence-bg); }
-    .fb-opt.sel.explain  { border-color: var(--explain); background: var(--explain-bg); }
-    .fb-opt.sel.link     { border-color: var(--link); background: var(--link-bg); }
-
-    .fb-opt input[type="radio"] {
-      margin-top: 3px; flex-shrink: 0; accent-color: var(--ink);
-    }
-    .fb-opt-content { flex: 1; min-width: 0; }
-    .fb-opt-title {
-      font-size: 13px; font-weight: 600; color: var(--ink);
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-    }
-    .tone-badge {
-      font-size: 9px; padding: 2px 8px; border-radius: 999px;
-      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .tone-pos { background: var(--sage-bg); color: var(--sage); box-shadow: inset 0 0 0 1px var(--sage); }
-    .tone-dev { background: var(--ochre-bg); color: #8a6a3a; box-shadow: inset 0 0 0 1px var(--ochre); }
-    .fb-opt-text {
-      font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin-top: 5px;
-    }
-
-    /* ========== OUTPUT PANEL ========== */
-    .right-col { align-self: start; position: sticky; top: 28px; }
-    .output-hdr { display: flex; justify-content: space-between; align-items: center; }
-    .btn-clear {
-      padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
-      background: var(--paper); font-size: 11px; font-family: 'Inter', sans-serif;
-      font-weight: 600; cursor: pointer; color: var(--ink-soft);
-      letter-spacing: 0.04em;
-    }
-    .btn-clear:hover { border-color: var(--ink); color: var(--ink); }
-    .output-empty {
-      color: var(--ink-mute); font-style: italic; padding: 28px 0;
-      text-align: center; font-size: 14px;
-    }
-
-    .out-block {
-      margin-bottom: 16px; padding: 18px 22px;
-      border-radius: var(--radius-sm);
-      border-left: 4px solid;
-      background: var(--cream);
-    }
-    .out-block:last-child { margin-bottom: 0; }
-    .out-block.point    { border-left-color: var(--point);    background: var(--point-bg); }
-    .out-block.evidence { border-left-color: var(--evidence); background: var(--evidence-bg); }
-    .out-block.explain  { border-left-color: var(--explain);  background: var(--explain-bg); }
-    .out-block.link     { border-left-color: var(--link);     background: var(--link-bg); }
-    .out-block h4 {
-      margin: 0 0 6px 0;
-      font-family: 'Inter', sans-serif;
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-    }
-    .out-block h4.point    { color: var(--point); }
-    .out-block h4.evidence { color: var(--evidence); }
-    .out-block h4.explain  { color: var(--explain); }
-    .out-block h4.link     { color: var(--link); }
-    .out-block p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--ink); }
+    .btn-primary:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
 
     @media (max-width: 720px) {
       .topbar, .demo-banner, .container { padding-left: 20px; padding-right: 20px; }
       .page-title { font-size: 32px; }
-      .panel-body { padding: 14px 22px 22px; }
-      .panel-hdr { padding: 20px 22px 4px; }
-      .right-col { position: static; }
+      .qsentence { padding: 22px; }
+      .picker { padding: 18px 20px; }
     }
   </style>
 </head>
@@ -299,9 +272,8 @@
     <div class="brand">
       <span class="brand-mark">F</span>
       <span class="brand-name">Feedback</span>
-      <span class="brand-sub">PEEL Demo</span>
+      <span class="brand-sub">Study Skills</span>
     </div>
-    <a class="topnav-back" href="index.html">&larr; Back to Study Skills</a>
   </header>
 
   <div class="demo-banner">
@@ -311,46 +283,33 @@
   <main class="container">
 
     <div class="page-eyebrow">Paragraph Craft</div>
-    <h1 class="page-title display">PEEL Paragraph Feedback</h1>
-    <p class="page-subtitle">Select a student paragraph, then choose feedback for each PEEL element. The assembled feedback appears on the right.</p>
+    <h1 class="page-title display">Practise PEEL.</h1>
+    <p class="page-subtitle">Read each sentence and decide whether it is a Point, Evidence, Explain or Link sentence. You&rsquo;ll get instant feedback explaining the answer.</p>
 
-    <!-- Top bar -->
-    <div class="top-bar">
-      <div class="form-group">
-        <label for="ddParagraph">Student paragraph</label>
-        <select id="ddParagraph"></select>
-      </div>
-      <div class="peel-legend">
-        <div class="peel-legend-item"><div class="peel-dot point"></div> Point</div>
-        <div class="peel-legend-item"><div class="peel-dot evidence"></div> Evidence</div>
-        <div class="peel-legend-item"><div class="peel-dot explain"></div> Explain</div>
-        <div class="peel-legend-item"><div class="peel-dot link"></div> Link</div>
-      </div>
+    <!-- PEEL definition strip -->
+    <div class="peel-defs">
+      <div class="def-card point"><div class="def-label">Point</div><div class="def-text">States the main claim &mdash; what this paragraph is arguing.</div></div>
+      <div class="def-card evidence"><div class="def-label">Evidence</div><div class="def-text">Backs up the claim with specific research, data, or examples.</div></div>
+      <div class="def-card explain"><div class="def-label">Explain</div><div class="def-text">Interprets the evidence &mdash; what it means for your argument.</div></div>
+      <div class="def-card link"><div class="def-label">Link</div><div class="def-text">Connects back to the question or forward to the next paragraph.</div></div>
     </div>
 
-    <!-- Two-column layout -->
-    <div class="main-grid">
-      <div>
-        <div class="panel" style="margin-bottom:20px;">
-          <div class="panel-hdr">Student's paragraph</div>
-          <div class="panel-body">
-            <div class="student-para" id="paragraphDisplay"></div>
-            <div class="para-meta" id="paragraphMeta"></div>
-          </div>
-        </div>
-        <div class="peel-grid" id="peelSelectors"></div>
-      </div>
+    <!-- Paragraph picker -->
+    <div class="picker">
+      <label for="ddParagraph">Choose a paragraph to practise on</label>
+      <select id="ddParagraph"></select>
+      <p class="topic-line" id="topicLine"></p>
+    </div>
 
-      <div class="right-col">
-        <div class="panel">
-          <div class="panel-hdr output-hdr">
-            <span>Assembled feedback</span>
-            <button class="btn-clear" id="btnClear">Clear</button>
-          </div>
-          <div class="panel-body" id="feedbackOutput">
-            <div class="output-empty">Select feedback for each PEEL element to build paragraph feedback.</div>
-          </div>
-        </div>
+    <p class="instructions">Below is a paragraph from a sample essay. Each sentence appears in order. <strong>Tag each sentence</strong> with the PEEL element you think it is. The colour will reveal whether you got it right and why.</p>
+
+    <div class="quiz" id="quiz"></div>
+
+    <div class="actions-bar">
+      <div class="score-line" id="scoreLine"></div>
+      <div class="actions-bar-buttons">
+        <button class="btn-secondary" id="btnReset">Start over</button>
+        <button class="btn-primary" id="btnReveal">Reveal answers</button>
       </div>
     </div>
 
